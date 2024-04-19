@@ -20,8 +20,8 @@ public_html/hot
 storage/
 Homestead.yaml
 Homestead.json
-composer.json
-composer.lock
+# composer.json
+# composer.lock
 
 /.vagrant
 .phpunit.result.cache
