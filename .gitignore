@@ -15,9 +15,14 @@ public/hot
 public_html/storage
 public_html/hot
 
-storage/*.key
+/storage/*.key
 .env
+storage/
 Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+/.fleet
+/.idea
+/.vscode
