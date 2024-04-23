@@ -27,6 +27,7 @@
 <script src="{{asset('public/assets/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('public/assets/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('public/assets/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('public/assets/js/action.js')}}"></script>
 <script type="text/javascript">
     var table = $("#order_list").DataTable({
         processing: true,
@@ -46,6 +47,13 @@
                 searchable: true
             }
         ]
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.order-status').on('click',function(){
+            alert($(this).attr('data-id'));
+        });
     });
 </script>
 @stop

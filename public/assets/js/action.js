@@ -723,6 +723,10 @@ $(document).ready(function(){
         $('.product-list').hide();
     });
 
+    $(document).on('click','.order-status',function(){
+        var orderId = $(this).attr('data-id');
+        alert(orderId);
+    });
 });
 
 

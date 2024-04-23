@@ -1,145 +1,258 @@
-<!------ FOOTER-WIDGET ------>
-<footer class="footer padding-t-100 bg-off-white">
-    <div class="container">
-        <div class="row footer-top padding-b-100">
-            <div class="col-xl-4 col-lg-6 col-sm-12 col-12 cr-footer-border">
-                <div class="cr-footer-logo">
-                    <div class="image">
-                        <a href="{{ url('/') }}">
-                            <h6>{{ site_settings()->site_name }}</h6>
-                        </a>
+<footer class="main">
+    <section class="newsletter mb-15 wow animate__animated animate__fadeIn">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="position-relative newsletter-inner">
+                        <div class="newsletter-content">
+                            <h2 class="mb-20">
+                                Stay home & get your daily <br />
+                                needs from our shop
+                            </h2>
+                            <p class="mb-45">Start You'r Daily Shopping with <span class="text-brand">Nest
+                                    Mart</span></p>
+                            <form class="form-subcriber d-flex">
+                                <input type="email" placeholder="Your emaill address" />
+                                <button class="btn" type="submit">Subscribe</button>
+                            </form>
+                        </div>
                     </div>
-                    <p>{{ site_settings()->description }}</p>
-                </div>
-                @if (site_settings()->address != '' || site_settings()->phone != '' || site_settings()->email != '')
-                <div class="cr-footer">
-                    <h4 class="cr-sub-title cr-title-hidden">
-                        Contact us
-                        <span class="cr-heading-res"></span>
-                        <div class="cr-heading-res"><i class="ri-arrow-down-s-line" aria-hidden="true"></i></div>
-                    </h4>
-                    <ul class="cr-footer-links cr-footer-dropdown active-drop-footer">
-                        @if (site_settings()->address != '')
-                        <li class="location-icon">
-                            {{ site_settings()->address }}
-                        </li>
-                        @endif
-                        @if (site_settings()->email != '')
-                        <li class="mail-icon">
-                            <a href="javascript:void(0)">{{ site_settings()->email }}</a>
-                        </li>
-                        @endif
-                        @if (site_settings()->phone != '')
-                        <li class="phone-icon">
-                            <a href="javascript:void(0)"> {{ site_settings()->phone }}</a>
-                        </li>
-                        @endif
-
-                    </ul>
-                </div>
-                @endif
-            </div>
-            <div class="col-xl-2 col-lg-3 col-sm-12 col-12 cr-footer-border">
-                <div class="cr-footer">
-                    <h4 class="cr-sub-title">
-                        Categories
-                        <span class="cr-heading-res"></span>
-                        <div class="cr-heading-res"><i class="ri-arrow-down-s-line" aria-hidden="true"></i></div>
-                    </h4>
-                    <ul class="cr-footer-links cr-footer-dropdown active-drop-footer">
-                        @foreach (all_category() as $f_cat)
-                            @if ($f_cat->parent_category == '0')
-                                <li><a href="{{ url('c/' . $f_cat->category_slug) }}"><i class="fa fa-angle-right"
-                                            aria-hidden="true"></i> {{ $f_cat->category_name }}</a></li>
-                            @endif
-                        @endforeach
-                    </ul>
-
                 </div>
             </div>
-            <div class="col-xl-2 col-lg-3 col-sm-12 col-12 cr-footer-border">
-                <div class="cr-footer">
-                    <h4 class="cr-sub-title">
-                        Category
-                        <span class="cr-heading-res"></span>
-                        <div class="cr-heading-res"><i class="ri-arrow-down-s-line" aria-hidden="true"></i></div>
-                    </h4>
-                    <ul class="cr-footer-links cr-footer-dropdown active-drop-footer">
-                        @foreach (site_pages() as $pages)
-                            <li><a href="{{ $pages->page_slug }}"><i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    {{ $pages->page_title }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-
         </div>
-        <div class="cr-last-footer">
-            <p>© <span id="copyright_year">{{ site_settings()->copyright }}</span>, All rights reserved.</p>
+    </section>
+    <section class="featured section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 mb-md-4 mb-xl-0">
+                    <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp"
+                        data-wow-delay="0">
+                        <div class="banner-icon">
+                            <img src="{{ asset('public/asset/imgs/theme/icons/icon-1.svg') }}" alt="" />
+                        </div>
+                        <div class="banner-text">
+                            <h3 class="icon-box-title">Best prices & offers</h3>
+                            <p>Orders $50 or more</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                    <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp"
+                        data-wow-delay=".1s">
+                        <div class="banner-icon">
+                            <img src="{{asset('public/asset/imgs/theme/icons/icon-2.svg') }}" alt="" />
+                        </div>
+                        <div class="banner-text">
+                            <h3 class="icon-box-title">Free delivery</h3>
+                            <p>24/7 amazing services</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                    <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp"
+                        data-wow-delay=".2s">
+                        <div class="banner-icon">
+                            <img src="{{ asset('public/asset/imgs/theme/icons/icon-3.svg') }}" alt="" />
+                        </div>
+                        <div class="banner-text">
+                            <h3 class="icon-box-title">Great daily deal</h3>
+                            <p>When you sign up</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                    <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp"
+                        data-wow-delay=".3s">
+                        <div class="banner-icon">
+                            <img src="{{ asset('public/asset/imgs/theme/icons/icon-4.svg') }}" alt="" />
+                        </div>
+                        <div class="banner-text">
+                            <h3 class="icon-box-title">Wide assortment</h3>
+                            <p>Mega Discounts</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                    <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp"
+                        data-wow-delay=".4s">
+                        <div class="banner-icon">
+                            <img src="{{ asset('public/asset/imgs/theme/icons/icon-5.svg') }}" alt="" />
+                        </div>
+                        <div class="banner-text">
+                            <h3 class="icon-box-title">Easy returns</h3>
+                            <p>Within 30 days</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 d-xl-none">
+                    <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp"
+                        data-wow-delay=".5s">
+                        <div class="banner-icon">
+                            <img src="{{ asset('public/asset/imgs/theme/icons/icon-6.svg') }}" alt="" />
+                        </div>
+                        <div class="banner-text">
+                            <h3 class="icon-box-title">Safe delivery</h3>
+                            <p>Within 30 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding footer-mid">
+        <div class="container pt-15 pb-20">
+            <div class="row">
+                <div class="col">
+                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp"
+                        data-wow-delay="0">
+                        <div class="logo mb-30">
+                            <a class='mb-15' href='index.html'><img src="{{ asset('public/asset/imgs/theme/logo.svg') }}"
+                                    alt="logo" /></a>
+                            <p class="font-lg text-heading">Awesome grocery store website template</p>
+                        </div>
+                        <ul class="contact-infor">
+                            <li><img src="{{ asset('public/asset/imgs/theme/icons/icon-location.svg') }}" alt="" /><strong>Address:
+                                </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span>
+                            </li>
+                            <li><img src="{{ asset('public/asset/imgs/theme/icons/icon-contact.svg') }}" alt="" /><strong>Call
+                                    Us:</strong><span>(+91) - 540-025-124553</span></li>
+                            <li><img src="{{ asset('public/asset/imgs/theme/icons/icon-email-2.svg') }}"
+                                    alt="" /><strong>Email:</strong><span>sale@Nest.com</span></li>
+                            <li><img src="{{ asset('public/asset/imgs/theme/icons/icon-clock.svg') }}"
+                                    alt="" /><strong>Hours:</strong><span>10:00 - 18:00, Mon - Sat</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s>
+                    <h4 class=" widget-title">Company</h4>
+                    <ul class="footer-list mb-sm-5 mb-md-0">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Support Center</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
+                    <h4 class="widget-title">Account</h4>
+                    <ul class="footer-list mb-sm-5 mb-md-0">
+                        <li><a href="#">Sign In</a></li>
+                        <li><a href="#">View Cart</a></li>
+                        <li><a href="#">My Wishlist</a></li>
+                        <li><a href="#">Track My Order</a></li>
+                        <li><a href="#">Help Ticket</a></li>
+                        <li><a href="#">Shipping Details</a></li>
+                        <li><a href="#">Compare products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
+                    <h4 class="widget-title">Corporate</h4>
+                    <ul class="footer-list mb-sm-5 mb-md-0">
+                        <li><a href="#">Become a Vendor</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                        <li><a href="#">Farm Business</a></li>
+                        <li><a href="#">Farm Careers</a></li>
+                        <li><a href="#">Our Suppliers</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Promotions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
+                    <h4 class="widget-title">Popular</h4>
+                    <ul class="footer-list mb-sm-5 mb-md-0">
+                        <li><a href="#">Milk & Flavoured Milk</a></li>
+                        <li><a href="#">Butter and Margarine</a></li>
+                        <li><a href="#">Eggs Substitutes</a></li>
+                        <li><a href="#">Marmalades</a></li>
+                        <li><a href="#">Sour Cream and Dips</a></li>
+                        <li><a href="#">Tea & Kombucha</a></li>
+                        <li><a href="#">Cheese</a></li>
+                    </ul>
+                </div>
+                <div class="footer-link-widget widget-install-app col wow animate__animated animate__fadeInUp"
+                    data-wow-delay=".5s">
+                    <h4 class="widget-title">Install App</h4>
+                    <p class="">From App Store or Google Play</p>
+                    <div class="download-app">
+                        <a href="#" class="hover-up mb-sm-2 mb-lg-0"><img class="active"
+                                src="{{ asset('public/asset/imgs/theme/app-store.jpg') }}" alt="" /></a>
+                        <a href="#" class="hover-up mb-sm-2"><img src="{{ asset('public/asset/imgs/theme/google-play.jpg') }}"
+                                alt="" /></a>
+                    </div>
+                    <p class="mb-20">Secured Payment Gateways</p>
+                    <img class="" src="{{ asset('public/asset/imgs/theme/payment-method.png') }}" alt="" />
+                </div>
+            </div>
+    </section>
+    <div class="container pb-30 wow animate__animated animate__fadeInUp" data-wow-delay="0">
+        <div class="row align-items-center">
+            <div class="col-12 mb-30">
+                <div class="footer-bottom"></div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <p class="font-sm mb-0">&copy; 2024, <strong class="text-brand">Nest</strong> - HTML Ecommerce
+                    Template <br />All rights reserved</p>
+            </div>
+            <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
+                <div class="hotline d-lg-inline-flex mr-30">
+                    <img src="{{ asset('public/asset/imgs/theme/icons/phone-call.svg') }}" alt="hotline" />
+                    <p>1900 - 6666<span>Working 8:00 - 22:00</span></p>
+                </div>
+                <div class="hotline d-lg-inline-flex">
+                    <img src="{{ asset('public/asset/imgs/theme/icons/phone-call.svg') }}" alt="hotline" />
+                    <p>1900 - 8888<span>24/7 Support Center</span></p>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-6 text-end d-none d-md-block">
+                <div class="mobile-social-icon">
+                    <h6>Follow Us</h6>
+                    <a href="#"><img src="{{ asset('public/asset/imgs/theme/icons/icon-facebook-white.svg') }}" alt="" /></a>
+                    <a href="#"><img src="{{ asset('public/asset/imgs/theme/icons/icon-twitter-white.svg') }}" alt="" /></a>
+                    <a href="#"><img src="{{ asset('public/asset/imgs/theme/icons/icon-instagram-white.svg') }}" alt="" /></a>
+                    <a href="#"><img src="{{ asset('public/asset/imgs/theme/icons/icon-pinterest-white.svg') }}" alt="" /></a>
+                    <a href="#"><img src="{{ asset('public/asset/imgs/theme/icons/icon-youtube-white.svg') }}" alt="" /></a>
+                </div>
+                <p class="font-sm">Up to 15% discount on your first subscribe</p>
+            </div>
         </div>
     </div>
 </footer>
-
-<!------/FOOTER-WIDGET------>
-
-<!------ FOOTER ------>
-
-<!------/FOOTER------>
-
-<script src="{{asset('public/assets/js/jquery.min.js')}}"></script>
-<script src="{{asset('public/assets/js/jquery.flexslider.js')}}"></script>
-<script src="{{asset('public/assets/js/price-range.js')}}"></script>
-<script src="{{asset('public/assets/js/jquery-ui.js')}}"></script>
-<script src="{{asset('public/assets/js/jquery.validate.min.js')}}"></script>
-<!--  -->
-<script src="{{asset('public/assets/js/action.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://unpkg.com/smartwizard@6/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-
-<?php if(!(session()->has('user_name'))){ ?>
-<!-- <script src="{{ asset('public/assets/js/addcart.js') }}"></script> -->
-
-<?php } ?>
-<!-- Vendor Custom -->
-<script src="{{ asset('public/asset/js/vendor/jquery-3.6.4.min.js') }}"></script>
-<script src="{{ asset('public/asset/js/vendor/jquery.zoom.min.js') }}"></script>
-<script src="{{ asset('public/asset/js/vendor/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('public/asset/js/vendor/mixitup.min.js') }}"></script>
-<script src="{{ asset('public/asset/js/vendor/range-slider.js') }}"></script>
-<script src="{{ asset('public/asset/js/vendor/aos.min.js') }}"></script>
-<script src="{{ asset('public/asset/js/vendor/swiper-bundle.min.js') }}"></script>
-<script src="{{ asset('public/asset/js/vendor/slick.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/sweetalert2.min.js') }}"></script>
-
-<!-- Main Custom -->
-
-<script src="{{ asset('public/asset/js/main.js') }}"></script>
-<script src="{{ asset('public/assets/js/main_ajax.js') }}"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
-<script type="text/javascript">
-    // $(document).ready(function() {
-
-    //     $('.flexslider').flexslider({
-    //         animation: "slide",
-    //         controlNav: "thumbnails",
-    //         start: function(slider) {
-    //             $('body').removeClass('loading');
-    //         }
-    //     });
-
-    //     $('.navbar-light .dmenu').hover(function() {
-    //         $(this).find('.sm-menu').first().stop(true, true).slideDown(300);
-    //     }, function() {
-    //         $(this).find('.sm-menu').first().stop(true, true).slideUp(300)
-    //     });
-
-    //     $('.select2').select2();
-
-    // });
-</script>
-@yield('pageJsScripts')
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="text-center">
+                <img src="{{ asset('public/asset/imgs/theme/loading.gif') }}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Vendor JS-->
+    <script src="{{ asset('public/asset/js/vendor/modernizr-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/slick.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/jquery.syotimer.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/waypoints.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/wow.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/magnific-popup.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/select2.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/counterup.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/images-loaded.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/isotope.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/scrollup.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/jquery.vticker-min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/jquery.theia.sticky.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/jquery.elevatezoom.js') }}"></script>
+    <!-- Template  JS -->
+    <script src="{{ asset('public/asset/js/main5103.js?v=6.0') }}"></script>
+    <script src="{{ asset('public/asset/js/shop5103.js?v=6.0') }}"></script>
+    @yield('pageJsScripts')
 </body>
 
 </html>
