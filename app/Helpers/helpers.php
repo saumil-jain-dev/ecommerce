@@ -110,15 +110,18 @@ if (! function_exists('get_product_price')) {
         ->leftJoin('flash_products','products.id','=','flash_products.product_id')
         ->leftJoin('flash_deals','flash_products.deals_id','=','flash_deals.id')
         ->where('products.id',$id)->first();
+
         $price->new_price = $product->taxable_price;
         $price->old_price = $product->taxable_price;
+
         $price->discount = '';
         if($product->flash_date_range != '' && $product->deal_status == '1'){
+            
             $datetimes = explode('-',$product->flash_date_range);
-            $currentDatetimes = date('Y-m-d H:i A');
+            $currentDatetimes = date('Y-m-d H:i A');
             if($product->flash_date_range != ''){
-                $startDatetimes = date('Y-m-d H:i A', strtotime("$datetimes[0]"));
-                $endDatetimes = date('Y-m-d H:i A', strtotime("$datetimes[1]"));
+                $startDatetimes = date('Y-m-d H:i A', strtotime("$datetimes[0]"));
+                $endDatetimes = date('Y-m-d H:i A', strtotime("$datetimes[1]"));
             }else{
                 $startDatetimes = '';
                 $endDatetimes = '';

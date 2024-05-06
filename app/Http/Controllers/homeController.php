@@ -116,7 +116,7 @@ class homeController extends Controller
                   ->leftjoin('states','states.id','=','cities.state')
                   ->get();
 
-        return view('public.product',['attrvalues'=>$attrvalues,'attributes'=>$attributes,'colors'=>$colors,'product'=>$product,'cities'=>$cities,'related'=>$related,'cart'=>$cart,'reviews'=>$reviews]);
+        return view('public.product',['attrvalues'=>$attrvalues,'attributes'=>$attributes,'colors'=>$colors,'product'=>$product,'cities'=>$cities,'related'=>$related,'cart'=>$cart,'reviews'=>$reviews,'text' => $text]);
     }
 
     public function search_products(Request $request,$slug = ''){
@@ -200,6 +200,7 @@ class homeController extends Controller
                     ->leftJoin('brands','brands.id','=','products.brand')
                     ->orderByRaw($order)->paginate($limit);
         }
+
 
         // return $cat_detail;
         return view('public.all-products',['slug'=>$slug,'cat_detail'=>$cat_detail,'cat_array'=>$cat_array,'products'=>$products,'brands'=>$brands,'limit'=>$limit]);

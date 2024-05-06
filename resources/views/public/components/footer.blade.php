@@ -236,6 +236,10 @@
     <script src="{{ asset('public/asset/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('public/asset/js/plugins/slick.js') }}"></script>
     <script src="{{ asset('public/asset/js/plugins/jquery.syotimer.min.js') }}"></script>
+    <script src="{{ asset('public/asset/js/plugins/jquery.validate.min.js') }}"></script>
+    <script src="{{asset('public/assets/js/action.js')}}"></script>
+    <script src="{{ asset('public/asset/js/plugins/additional-methods.min.js') }}"></script>
+    <script src="{{asset('public/assets/js/sweetalert2.min.js')}}"></script>
     <script src="{{ asset('public/asset/js/plugins/waypoints.js') }}"></script>
     <script src="{{ asset('public/asset/js/plugins/wow.js') }}"></script>
     <script src="{{ asset('public/asset/js/plugins/perfect-scrollbar.js') }}"></script>
@@ -249,6 +253,8 @@
     <script src="{{ asset('public/asset/js/plugins/jquery.vticker-min.js') }}"></script>
     <script src="{{ asset('public/asset/js/plugins/jquery.theia.sticky.js') }}"></script>
     <script src="{{ asset('public/asset/js/plugins/jquery.elevatezoom.js') }}"></script>
+    <script src="{{asset('public/assets/js/main_ajax.js')}}"></script>
+    <!-- <script src="{{asset('public/assets/js/main_ajax.js')}}"></script> -->
     <!-- Template  JS -->
     <script src="{{ asset('public/asset/js/main5103.js?v=6.0') }}"></script>
     <script src="{{ asset('public/asset/js/shop5103.js?v=6.0') }}"></script>

@@ -54,19 +54,31 @@ $(document).ready(function(){
     // ========================================
     // script for Signup Form
     // ========================================
+    // Custom validation method for letters and spaces
+    $.validator.addMethod("lettersAndSpaces", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z ]+$/.test(value);
+    },'Invalid Name');
     $('#signup_form').validate({
         rules: {
-            name: {required:true},
-            email: {required:true},
-            phone: {required:true},
+            name: {required:true,lettersAndSpaces: true},
+            email: {required:true, email: true},
+            phone: {required:true, digits: true,minlength: 10,maxlength: 10},
             password: {required:true},
             con_password: {required:true,equalTo:"#password"},
         },
-        message: {
+        messages: {
             name: {required: "Please Enter Your Name"},
-            email: {required: "Please Enter Your Email"},
-            phone: {required: "Please Enter Your Phone Number"},
+            email: {required: "Please Enter Your Email", email: "Please enter a valid email address"},
+            phone: {required: "Please Enter Your Phone Number",
+                 digits: "Please enter only digits",
+                minlength: "Phone number must be exactly 10 digits",
+                maxlength: "Phone number must be exactly 10 digits"
+            },
             password: {required: "Please Enter Your Password"},
+            con_password: {
+                required: "Please Enter Your Confirm Password",
+                equalTo: "Password and Confirm Password do not match",
+            },
         },
         submitHandler: function(form){
             $('#site-content').append(loader);
@@ -198,50 +210,51 @@ $(document).ready(function(){
     // ========================================
     // script for Login Form
     // ========================================
-    // $('#user_login').validate({
-    //     rules: {
-    //         username: {required:true},
-    //         password: {required:true},
-    //     },
-    //     message: {
-    //         username: {required: "Email Address is required"},
-    //         password: {required: "Password is required"},
-    //     },
-    //     submitHandler: function(form){
-    //         $('#site-content').append(loader);
-    //         var formdata = new FormData(form);
-    //         $.ajax({
-    //             url: site_url+'/user_login',
-    //             type: 'POST',
-    //             data: formdata,
-    //             processData: false,
-    //             contentType: false,
-    //             success: function(dataResult){
-    //                 console.log(dataResult);
-    //                 if(dataResult == '1'){
-    //                     insert_cart();
-    //                     Swal.fire({
-    //                         icon: 'success',
-    //                         title: 'Logged In Successfully',
-    //                         showConfirmButton: false,
-    //                         timer: 1500
-    //                       })
-    //                     setTimeout(function(){ window.location.href=document.referrer;}, 2000);
-    //                 }else{
-    //                     $.each(dataResult, function(i, error) {
-    //                         console.log(dataResult);
-    //                         Swal.fire({
-    //                             icon: 'error',
-    //                             title: 'Oops...',
-    //                             text: dataResult[i],
-    //                           })
-    //                         $('.loader-container').remove();
-    //                     });
-    //                 }
-    //             }
-    //         });
-    //     }
-    // });
+    $('#user_login').validate({
+        rules: {
+            email: {required:true},
+            password: {required:true},
+        },
+        messages: {
+            email: {required: "Email  is required"},
+            password: {required: "Password is required"},
+        },
+        submitHandler: function(form){
+            $('#site-content').append(loader);
+            var formdata = new FormData(form);
+
+            $.ajax({
+                url: site_url+'/user_login',
+                type: 'POST',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(dataResult){
+                   
+                    if(dataResult == '1'){
+                        insert_cart();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Logged In Successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                        setTimeout(function(){ window.location.href=document.referrer;}, 2000);
+                    }else{
+                        $.each(dataResult, function(i, error) {
+                            console.log(dataResult);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: dataResult[i],
+                              })
+                            $('.loader-container').remove();
+                        });
+                    }
+                }
+            });
+        }
+    });
 
     // ========================================
     // script for User Logout
@@ -272,19 +285,13 @@ $(document).ready(function(){
     // script for Add to cart
     // ========================================
     $('#addcart').click(function(e){
+
         e.preventDefault();
         var p_id = $(this).attr('data-id');
         var user = $(this).attr('data-user');
         var location = $('.shipping option:selected').val();
 
-        if(location == ''){
-            Swal.fire({
-                icon: 'warning',
-                title: 'Select Location',
-                showConfirmButton: false,
-                timer: 1000
-            })
-        }else{
+        
             if(user != ''){
                 var color_id = '';
                 if($('input[name=product_color]').length > 0){
@@ -386,7 +393,7 @@ $(document).ready(function(){
                 });
                 show_cart_count();
             }
-        }
+        
     });
     function show_cart_count(){
         var items = [];

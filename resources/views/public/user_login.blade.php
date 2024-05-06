@@ -1,77 +1,60 @@
 @extends('public.layout')
 @section('title','User Login')
 @section('content')
-<section class="section-breadcrumb">
-    <div class="cr-breadcrumb-image">
+<main class="main pages">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href='{{ route("home") }}' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
+                 <span></span> My Account
+            </div>
+        </div>
+    </div>
+    <div class="page-content pt-150 pb-150">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="cr-breadcrumb-title">
-                        <h2>Login</h2>
-                        <span> <a href="index.html">Home</a> - Login</span>
+                <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                    <div class="row">
+                        <div class="col-lg-6 pr-30 d-none d-lg-block">
+                            <img class="border-radius-15" src="{{ asset('public/asset/imgs/page/login-1.png') }} " alt="" />
+                        </div>
+                        <div class="col-lg-6 col-md-8">
+                            <div class="login_wrap widget-taber-content background-white">
+                                <div class="padding_eight_all bg-white">
+                                    <div class="heading_s1">
+                                        <h1 class="mb-5">Login</h1>
+                                        <p class="mb-30">Don't have an account? <a href='{{ route("signup") }}'>Create here</a></p>
+                                    </div>
+                                    @if (Session::has('message'))
+                                     <div class="alert alert-success" role="alert">
+                                     {{ Session::get('message') }}
+                                     </div>
+                                    @endif
+                                    <form method="post" id="user_login">
+                                        @csrf
+                                        <div class="form-group">
+                                            <input type="text" required="" name="email" placeholder=" Email *" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input required="" type="password" name="password" placeholder="Your password *" />
+                                        </div>
+                                        <div class="login_footer form-group mb-50">
+                                            <div class="chek-form">
+                                                <a class="text-muted" href="#">Forgot password?</a>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" name="" value="Login" class="btn btn-heading btn-block hover-up">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<section class="section-login padding-tb-100" id="site-content">
-    <div class="container">
-        <div class="row d-none">
-            <div class="col-lg-12">
-                <div class="mb-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
-                    <div class="cr-banner">
-                        <h2>Login</h2>
-                    </div>
-                    <div class="cr-banner-sub-title">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore lacus vel facilisis. </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="cr-login aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
-                    {{-- <div class="form-logo">
-                        <img src="assets/img/logo/logo.png" alt="logo">
-                    </div> --}}
-                     <!-- Form Start -->
-                     @if (Session::has('message'))
-                     <div class="alert alert-success" role="alert">
-                     {{ Session::get('message') }}
-                     </div>
-                     @endif
-                    <form class="cr-content-form" action="{{ URL('user_login') }}" method ="POST" autocomplete="off">
-                        @csrf
-                        {{-- <input type="hidden" class="url" value="{{url('/')}}" > --}}
-                        <div class="form-group">
-                            <label>Email Address*</label>
-                            <input type="email" name="username" placeholder="Enter Your Email" class="cr-form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Password*</label>
-                            <input type="password" name="password" placeholder="Enter Your password" class="cr-form-control">
-                        </div>
-                        <div class="remember">
-                            <span class="form-group custom">
-                                <input type="checkbox" id="html">
-                                <label for="html">Remember Me</label>
-                            </span>
-                            <a class="link" href="{{url('forgot-password')}}">Forgot Password?</a>
-
-                        </div><br>
-                        <div class="login-buttons">
-                            <input type="submit" name="save" class="cr-button" required value="Login">
-                            <a href="{{url('signup')}}" class="link">
-                                 Signup?
-                            </a>
-                            {{-- <input type="submit"   class="btn btn-primary login-btn" value="Login" /> --}}
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</main>
 @stop

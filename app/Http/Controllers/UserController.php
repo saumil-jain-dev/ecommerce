@@ -93,7 +93,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email',
-            'phone' => 'required',
+            'phone' => 'required|unique:users,phone',
             'password' => 'required',
         ]);
 
@@ -103,8 +103,7 @@ class UserController extends Controller
         $user->phone = $request->input('phone');
         $user->password = Hash::make($request->input('password'));
         $u = $user->save();
-        print_r($u);
-        die();
+        
         return $u;
     }
 
@@ -218,29 +217,29 @@ class UserController extends Controller
         if ($request->input()) {
 
             $request->validate([
-                'username' => 'required',
+                'email' => 'required',
                 'password' => 'required',
             ]);
 
-            $login = User::where(['email' => $request->username])->first();
+            $login = User::where(['email' => $request->email])->first();
 
             if (empty($login)) {
                 return response()->json(['username' => 'Username Does not Exists.']);
             } else if ($login->status == '0') {
-                return response()->json(['username' => 'The Email / Username is Blocked.']);
+                return response()->json(['username' => 'The Email is Blocked.']);
             } else {
                 if (Hash::check($request->password, $login->password)) {
                     $request->session()->put('user', '1');
                     $request->session()->put('user_name', $login->name);
                     $request->session()->put('user_id', $login->user_id);
                     $request->session()->put('user_city', $login->city);
-                    // return response()->json('1');
+                    return response()->json('1');
                     // dd(Auth::user());
                     // dd(session()->get('user_id'));
-                    return redirect('/');
+                    // return redirect('/');
                 } else {
 
-                    return response()->json(['password' => 'Username and Password does not matched.']);
+                    return response()->json(['password' => 'Email and Password does not matched.']);
                 }
             }
         } else {

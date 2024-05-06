@@ -1,94 +1,67 @@
 @extends('public.layout')
 @section('title', 'Sign Up')
 @section('content')
-    <!-- Breadcrumb -->
-    <section class="section-breadcrumb">
-        <div class="cr-breadcrumb-image">
+   <main class="main pages">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href='{{ route("home") }}' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
+                    <span></span> Pages <span></span> My Account
+                </div>
+            </div>
+        </div>
+        <div class="page-content pt-150 pb-150">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="cr-breadcrumb-title">
-                            <h2>Register</h2>
-                            <span> <a href="index.html">Home</a> - Register</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Register -->
-    <section class="section-register padding-tb-100">
-        <div class="container">
-            <div class="row d-none">
-                <div class="col-lg-12">
-                    <div class="mb-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000"
-                        data-aos-delay="400">
-                        <div class="cr-banner">
-                            <h2>Register</h2>
-                        </div>
-                        <div class="cr-banner-sub-title">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore lacus vel facilisis. </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="cr-register aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000"
-                        data-aos-delay="400">
-                        <div class="form-logo">
-                            <img src="assets/img/logo/logo.png" alt="logo">
-                        </div>
-                        <form class="cr-content-form" id="signup_form" method ="POST" autocomplete="off">
-                            @csrf
-                            <input type="hidden" class="url" value="{{ url('/signup') }}">
-                            <input type="hidden" class="url-login" value="{{ url('/user_login') }}">
-                            <div class="row">
-                                <div class="col-12 ">
-                                    <div class="form-group">
-                                        <label>Firast Name*</label>
-                                        <input type="text" name="name" placeholder="Enter Your First Name" class="cr-form-control" required>
+                    <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-8">
+                                <div class="login_wrap widget-taber-content background-white">
+                                    <div class="padding_eight_all bg-white">
+                                        <div class="heading_s1">
+                                            <h1 class="mb-5">Create an Account</h1>
+                                            <p class="mb-30">Already have an account? <a href='{{ route("user_login") }}'>Login</a></p>
+                                        </div>
+                                        <form method="post" id="signup_form">
+                                            @csrf
+                                            <input type="hidden" class="url" value="{{ url('/signup') }}">
+                                            <input type="hidden" class="url-login" value="{{ url('/user_login') }}">
+                                            <div class="form-group">
+                                                <input type="text"  name="name" placeholder="Username" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="phone" placeholder="Phone Number" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text"  name="email" placeholder="Email" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input  type="password" name="password" id="password" placeholder="Password" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input  type="password" name="con_password" placeholder="Confirm password" />
+                                            </div>
+                                            
+                                            <div class="login_footer form-group mb-50">
+                                                <div class="chek-form">
+                                                    <div class="custome-checkbox">
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-group mb-30">
+                                                <input type="submit" name="" value="register">
+                                            </div>
+                                            <p class="font-xs text-muted"><strong>Note:</strong>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy</p>
+                                        </form>
                                     </div>
-                                </div>
-
-                                <div class="col-12 ">
-                                    <div class="form-group">
-                                        <label>Email*</label>
-                                        <input type="email" name="email" placeholder="Enter Your email" class="cr-form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-12 ">
-                                    <div class="form-group">
-                                        <label>Phone Number*</label>
-                                        <input type="number" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Enter Your phone number" class="cr-form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-12 ">
-                                    <div class="form-group">
-                                        <label>Password*</label>
-                                        <input type="password" name="password" id="password" placeholder="Enter Your password" class="cr-form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-12 ">
-                                    <div class="form-group">
-                                        <label>Confirm Password*</label>
-                                        <input type="password" name="con_password" placeholder="Enter Your password" class="cr-form-control" required>
-                                    </div>
-                                </div>
-                                <div class="cr-register-buttons">
-                                    <input type="submit" name="save" class="cr-button" value="Signup" required>
-                                    <a href="{{ url('user_login') }}" class="link">
-                                        Have an account?
-                                    </a>
-
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
+    </main>
 @stop

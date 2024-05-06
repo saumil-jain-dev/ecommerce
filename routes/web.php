@@ -87,17 +87,17 @@ use App\Http\Controllers\DiscountController;
 
 
     Route::get('/',[homeController::class,'index'])->name('home');
-    Route::get('/c/{text}',[homeController::class,'search_products']);
+    Route::get('/products/{text}',[homeController::class,'search_products']);
     Route::get('/product/{text}',[homeController::class,'productpage']);
     Route::get('/flash-deals',[homeController::class,'allflashdeals']);
     Route::get('/flash-products',[homeController::class,'allflashproducts']);
     Route::get('/flash-products/{text}',[homeController::class,'flashproducts']);
     Route::get('/today-deals',[homeController::class,'todayDeals']);
-    Route::get('/signup',[UserController::class,'create']);
+    Route::get('/signup',[UserController::class,'create'])->name('signup');
     Route::post('/signup',[UserController::class,'store']);
-    Route::get('/user_login',[UserController::class,'login']);
+    Route::get('/user_login',[UserController::class,'login'])->name('user_login');
     Route::post('/user_login',[UserController::class,'login_form']);
-    Route::get('/logout',[UserController::class,'logout']);
+    Route::get('/logout',[UserController::class,'logout'])->name('logout');
     Route::post('/my-profile/get-state',[UserController::class,'get_state']);
     Route::post('/my-profile/get-city',[UserController::class,'get_city']);
     Route::get('/changepassword',[UserController::class,'changepassword']);
@@ -108,9 +108,9 @@ use App\Http\Controllers\DiscountController;
 
     Route::post('/add-wishlist',[UserController::class,'add_wishlist']);
     Route::post('/remove-wishlist',[UserController::class,'remove_wishlist']);
-    Route::get('/wishlists',[UserController::class,'my_wishlist']);
+    Route::get('/wishlists',[UserController::class,'my_wishlist'])->name('wishlists');
 
-    Route::get('/cart',[UserController::class,'my_cart']);
+    Route::get('/cart',[UserController::class,'my_cart'])->name('cart');
     Route::post('/show_cart',[UserController::class,'show_local_cart']);
     Route::post('/save_cart',[UserController::class,'save_cart']);
     Route::post('/remove_cart',[UserController::class,'remove_cart']);
