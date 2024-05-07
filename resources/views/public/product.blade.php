@@ -65,26 +65,24 @@
                                         <div class="short-desc mb-30">
                                             <p class="font-lg"></p>
                                         </div>
-                                        <div class="attr-detail attr-size mb-30">
-                                            @foreach($attributes as $row)
-                                            @php
-                                                $value = array_filter(explode(',',$row->attrvalues));
-                                            @endphp
-                                            <strong class="mr-10">{{$row->title}}: </strong>
+                                        @foreach($attributes as $row)
+                                        @php
+                                            $value = array_filter(explode(',',$row->attrvalues));
+                                        @endphp
+                                        <div class="product-attributes">
+                                            <span>{{$row->title}}:</span>
                                             @php $j=0;  @endphp
-                                            <ul class="list-filter size-filter font-small">
-                                                @foreach($attrvalues as $item1)
-                                                    @if(in_array($item1->id,$value))
-                                                    @php $attr_check = ($j==0) ? 'active' : '';  @endphp
+                                            @foreach($attrvalues as $item1)
+                                                @if(in_array($item1->id,$value))
+                                                @php $attr_check = ($j==0) ? 'checked' : '';  @endphp
                                                     <input type="hidden" name="product_attrvalues"  value="{{$item1->id}}" data-id="{{$row->product_id}}">
-                                                
-                                                <li class="{{$attr_check}}"><a href="#">{{$item1->value}}</a></li>
-                                                @php $j++;  @endphp
+                                                    <input type="radio" class="attrvalue" data-attr="{{$item1->attribute}}" id="attrvalue{{$item1->id}}" name="{{strtolower($row->title)}}" {{$attr_check}} value="{{$item1->id}}" required>
+                                                    <label for="attrvalue{{$item1->id}}">{{$item1->value}}</label>
+                                                    @php $j++;  @endphp
                                                 @endif
-                                                @endforeach
-                                            </ul>
                                             @endforeach
                                         </div>
+                                    @endforeach
                                         <div class="detail-extralink mb-50">
                                             <div class="detail-qty border radius">
                                                 <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
@@ -93,7 +91,7 @@
                                             </div>
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart custom-add-to-cart" id="addcart" data-user="{{session()->get('user_id')}}" data-id="{{$product->id}}"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
-                                                <a aria-label='Add To Wishlist' class='action-btn hover-up' href='shop-wishlist.html'><i class="fi-rs-heart"></i></a>
+                                                <a aria-label='Add To Wishlist' class='action-btn hover-up addwishlist' href='javascript:void(0)' data-id="{{$product->id}}" data-user="{{session()->get('user_id')}}"><i class="fi-rs-heart"></i></a>
                                                 
                                             </div>
                                         </div>

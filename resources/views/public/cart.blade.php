@@ -22,12 +22,13 @@
                 </div>
             </div>
         </div>
+        <form action="{{url('/checkout')}}">
+        @csrf
         <div class="row">
             <div class="col-lg-8">
                 <div class="table-responsive shopping-summery">
                     @if($products->isNotEmpty())
-                    <form action="{{url('/checkout')}}">
-                    @csrf
+                    
                     <table class="table table-wishlist">
                         <thead>
                             <tr class="main-heading">
@@ -54,7 +55,32 @@
                                 
                                 <td class="image product-thumbnail pt-40"><img src="{{asset('public/products/'.$product->thumbnail_img)}}" alt="#" width="70px"></td>
                                 <td class="product-des product-name">
-                                    <h6 class="mb-5"><a class='product-name mb-10 text-heading' href="{{url('/product/'.$product->slug)}}">{{$product->product_name}}</a></h6>
+                                    <h6 class="mb-5"><a class='product-name mb-10 text-heading' href="{{url('/product/'.$product->slug)}}">{{$product->product_name}}</a></h6><br>
+                                    @if($product->color_code != '')
+                                                <span><b>Color : </b> <label for="color{{$product->id}}" style="background-color:{{$product->color_code}};cursor:auto;"></label></span>
+                                            @endif
+                                            @if($product->attrvalues != '')
+                                                @php
+                                                    echo '<ul>';
+                                                    $p_attr = array_filter(explode(',',$product->attrvalues));
+                                                    for($i=0;$i<count($p_attr);$i++){
+                                                        $atr_val = array_filter(explode(':',$p_attr[$i]));
+                                                        echo '<li>';
+                                                        foreach($attributes as $attr_array){
+                                                            if($attr_array->id == $atr_val[0]){
+                                                                echo '<span><b>'.$attr_array->title.':</b></span>';
+                                                            }
+                                                        }
+                                                        foreach($attrvalues as $attr_vals){
+                                                            if($attr_vals->id == $atr_val[1] && $atr_val[0] == $attr_vals->attribute){
+                                                                echo ' <span>'.$attr_vals->value.'</span>';
+                                                            }
+                                                        }
+                                                        echo '</li>';
+                                                    }
+                                                    echo '</ul>';
+                                                @endphp
+                                            @endif
                                 </td>
                                 <td class="price" data-title="Price">
                                     <h4 class="text-body">{{site_settings()->currency}}{{get_product_price($product->id)->new_price}} </h4>
@@ -63,19 +89,19 @@
                                     <div class="detail-extralink mr-15">
                                         <div class="detail-qty border radius">
                                             
-                                           <input type="number" class="form-control item-qty" min='1' name="qty[{{$product->id}}]" style="width: 80px;" value="1">
+                                           <input type="number" class="form-control item-qty " min='1' name="qty[{{$product->id}}]" style="width: 80px;" value="1">
                                             <input type="number" class="product-price" name="price[{{$product->id}}]" value="{{get_product_price($product->id)->new_price}}" hidden>
-                                            
+                                            <input type="hidden" name="cart_id" value="{{ $product->id}}" class="cart_id">
                                             <input type="number" class="product-shipping" value="{{$shipping}}" hidden>
                                             
                                         </div>
                                     </div>
                                 </td>
                                 <td class="price" data-title="Price">
-                                    <h4 class="text-brand"> {{site_settings()->currency}}<span class="product-total">{{get_product_price($product->id)->new_price + $shipping}} </span></h4>
+                                    <h4 class="text-brand"> {{site_settings()->currency}}<span class="product-total {{$product->id}}_total">{{get_product_price($product->id)->new_price + $shipping}} </span></h4>
                                 </td>
-                                <td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a>
-                                <button type="button" class="btn btn-danger remove-cart" data-id="{{$product->cart_id}}"><i class="fas fa-trash"></i></button></td>
+                                <td class="action text-center" data-title="Remove">
+                                <button type="button" class="btn btn-danger remove-cart" data-id="{{$product->cart_id}}"><i class="fi-rs-trash"></i></button></td>
                             </tr>
                                @endforeach
                         </tbody>
@@ -86,13 +112,10 @@
                         <a href="{{url('/')}}" class="btn btn-primary">Shop Now</a>
                     </div>
                 @endif
-                </form>
+                
                 </div>
                 <div class="divider-2 mb-30"></div>
-                <div class="cart-action d-flex justify-content-between">
-                    <a class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a>
-                    <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Update Cart</a>
-                </div>
+                
 
                 <div class="row mt-50">
                     <div class="col-lg-7">
@@ -119,7 +142,7 @@
                                         <h6 class="text-muted">Subtotal</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h4 class="text-brand text-end">$12.31</h4>
+                                        <h4 class="text-brand text-end">{{site_settings()->currency}}<span class="total-amount"></span></h4>
                                     </td>
                                 </tr>
                                 <tr>
@@ -132,12 +155,8 @@
                                         <h6 class="text-muted">Shipping</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h5 class="text-heading text-end">Free</h4</td> </tr> <tr>
-                                    <td class="cart_total_label">
-                                        <h6 class="text-muted">Estimate for</h6>
-                                    </td>
-                                    <td class="cart_total_amount">
-                                        <h5 class="text-heading text-end">United Kingdom</h4</td> </tr> <tr>
+                                        <h5 class="text-heading text-end">Free</h4></td> </tr> <tr>
+                                     </tr> <tr>
                                     <td scope="col" colspan="2">
                                         <div class="divider-2 mt-10 mb-10"></div>
                                     </td>
@@ -147,13 +166,16 @@
                                         <h6 class="text-muted">Total</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h4 class="text-brand text-end">$12.31</h4>
+                                        <h4 class="text-brand text-end">{{site_settings()->currency}}<span class="total-amount"></span></h4>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+
                     </div>
-                    <a href="#" class="btn mb-20 w-100">Proceed To CheckOut<i class="fi-rs-sign-out ml-15"></i></a>
+                    
+                    <input type="submit" class="btn mb-20 w-100" name="checkout" value="Proceed to Checkout">
+                    </form>
                 </div>
             </div>
         </div>

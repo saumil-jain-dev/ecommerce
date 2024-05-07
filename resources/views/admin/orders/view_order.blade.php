@@ -18,7 +18,7 @@
                             <tr class="active">
                                 <th colspan="4"><h5><b>ORDER No. :  {{'ODR00'.$order->id}} </b></h5></th>
                                 <th width="250px"><b>Order Placed : {{date('d M, Y',strtotime($order->created_at))}}</b></th>
-                                <th>Action</th>
+                                
                             </tr>
                             @foreach($products as $row)
                                 <input type="hidden" name="order_id" value="{{$row->order_id}}">
@@ -55,26 +55,16 @@
                                         <span><b>Qty : </b>{{$row->product_qty}}</span>
                                     </td>
                                     <td>
-                                        <b>Sub Total : {{site_settings()->currency}}{{$row->product_amount}}</b> 
+                                        <b>Sub Total : {{site_settings()->currency}}{{$row->product_amount * $row->product_qty}}</b> 
                                     </td>
                                     <td>
-                                        @php 
-                                            $date = $row->created_at;
-                                            $totalDuration = +$row->shipping_days ;
-                                        @endphp
-                                        <b>Delivery Expected By : </b>{{date('d F, Y',strtotime($date.$totalDuration.'day'))}}
+                                        {{ $order->additional_info }}
                                     </td>
-                                    <td>
-                                    @if($row->product_delivery == '1')
-                                        <span>Delivered</span>
-                                    @else
-                                        <button class="btn btn-info btn-sm deliverConfirm" data-qty="{{$row->product_qty}}" data-id="{{$row->product_id}}" data-order-id="{{$order->id}}">Deliver</button>
-                                    @endif
-                                    </td>
+                                    
                                 </tr>
                             @endforeach
                             <tr>
-                                <td colspan="3" align="right"><b>Total Amount ($)</b></td>
+                                <td colspan="3" align="right"><b>Total Amount </b></td>
                                 <td>{{site_Settings()->currency}}{{$order->amount}}</td>
                             </tr>
                     </tbody>

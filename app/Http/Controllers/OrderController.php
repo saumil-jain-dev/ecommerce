@@ -44,7 +44,7 @@ class OrderController extends Controller
                 ->editColumn('order_id', function($row){
                     $order_id = 'ODR00'.$row->id;
                     if (strpos($row->delivery, '0') !== false) {
-                        $order_id .= '<br><span class="text-danger">(Pending)</span>';
+                        $order_id .= '<br><span class="text-danger">( '.ucfirst($row->status).' )</span>';
                     }
                     return $order_id;
                 })
@@ -67,7 +67,7 @@ class OrderController extends Controller
                 })
                 ->editColumn('user_details', function($row){
                     $user_details = "<ul>
-                                        <li><b>Name: </b> $row->name</li>
+                                        <li><b>Name: </b> $row->fname  $row->lname</li>
                                         <li><b>Address: </b> $row->address</li>
                                     </ul>";
                     return $user_details;

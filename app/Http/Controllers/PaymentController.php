@@ -283,17 +283,6 @@ class PaymentController extends Controller
 
 
     public function success(){
-      if(Session::has('order')){
-        Session::forget('order');
         return view('public.success');
-      }else{
-        return abort('404');
-      }
-    }
-    
-
-
-
-    
-    
+    }    
 }

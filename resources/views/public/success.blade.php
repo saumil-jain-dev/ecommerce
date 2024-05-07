@@ -15,7 +15,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-12">
             <div class="booking-btn text-center">
-                <a href="{{url('/my_orders')}}" class="btn btn-primary text-center">My Orders</a>
+                <a href="{{route('my_account')}}" class="btn btn-primary text-center">My Orders</a>
             </div>
         </div>
     </div>

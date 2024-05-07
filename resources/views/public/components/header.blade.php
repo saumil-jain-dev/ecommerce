@@ -44,37 +44,11 @@
                                 <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                 <!-- MAIN SLIDES -->
                                 <div class="product-image-slider">
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('public/asset/imgs/shop/product-16-2.jpg') }}" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('public/asset/imgs/shop/product-16-1.jpg') }}" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('public/asset/imgs/shop/product-16-3.jpg') }}" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('public/asset/imgs/shop/product-16-4.jpg') }}" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('public/asset/imgs/shop/product-16-5.jpg') }}" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('public/asset/imgs/shop/product-16-6.jpg') }}" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('public/asset/imgs/shop/product-16-7.jpg') }}" alt="product image" />
-                                    </figure>
+                                    
                                 </div>
                                 <!-- THUMBNAILS -->
                                 <div class="slider-nav-thumbnails">
-                                    <div><img src="{{ asset('public/asset/imgs/shop/thumbnail-3.jpg') }}" alt="product image" /></div>
-                                    <div><img src="{{ asset('public/asset/imgs/shop/thumbnail-4.jpg') }}" alt="product image" /></div>
-                                    <div><img src="{{ asset('public/asset/imgs/shop/thumbnail-5.jpg') }}" alt="product image" /></div>
-                                    <div><img src="{{ asset('public/asset/imgs/shop/thumbnail-6.jpg') }}" alt="product image" /></div>
-                                    <div><img src="{{ asset('public/asset/imgs/shop/thumbnail-7.jpg') }}" alt="product image" /></div>
-                                    <div><img src="{{ asset('public/asset/imgs/shop/thumbnail-8.jpg') }}" alt="product image" /></div>
-                                    <div><img src="{{ asset('public/asset/imgs/shop/thumbnail-9.jpg') }}" alt="product image" /></div>
+                                    
                                 </div>
                             </div>
                             <!-- End Gallery -->
@@ -196,23 +170,18 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href='index.html'><img src="{{ asset('public/asset/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                        @if(site_settings()->site_logo == '')
+                        <a href='{{ url("/") }}'><img src="{{ asset('public/asset/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                        @else
+                        <a href='{{ url("/") }}'><img src="{{asset('public/site/'.site_settings()->site_logo)}}" alt="{{site_settings()->site_name}}"></a>
+                        @endif
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
                             <form action="#">
                                 <select class="select-active">
                                     <option>All Categories</option>
-                                    <option>Milks and Dairies</option>
-                                    <option>Wines & Alcohol</option>
-                                    <option>Clothing & Beauty</option>
-                                    <option>Pet Foods & Toy</option>
-                                    <option>Fast food</option>
-                                    <option>Baking material</option>
-                                    <option>Vegetables</option>
-                                    <option>Fresh Seafood</option>
-                                    <option>Noodles & Rice</option>
-                                    <option>Ice cream</option>
+                                    
                                 </select>
                                 <input type="text" placeholder="Search for items..." />
                             </form>
@@ -220,28 +189,11 @@
                         <div class="header-action-right">
                             <div class="header-action-2">
                                 <div class="search-location">
-                                    <form action="#">
-                                        <select class="select-active">
-                                            <option>Your Location</option>
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>Arizona</option>
-                                            <option>Delaware</option>
-                                            <option>Florida</option>
-                                            <option>Georgia</option>
-                                            <option>Hawaii</option>
-                                            <option>Indiana</option>
-                                            <option>Maryland</option>
-                                            <option>Nevada</option>
-                                            <option>New Jersey</option>
-                                            <option>New Mexico</option>
-                                            <option>New York</option>
-                                        </select>
-                                    </form>
+                                    
                                 </div>
                                 
                                 <div class="header-action-icon-2">
-                                    <a href='shop-wishlist.html'>
+                                    <a href='{{ route("wishlists") }}'>
                                         <img class="svgInject" alt="Nest"
                                             src="{{ asset('public/asset/imgs/theme/icons/icon-heart.svg') }}" />
                                         <span class="pro-count blue">{{user_wishlist()}}</span>
@@ -249,50 +201,12 @@
                                     <a href='{{ route("wishlists") }}'><span class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a class='mini-cart-icon' href='shop-cart.html'>
+                                    <a class='mini-cart-icon' href='{{ route("cart") }}'>
                                         <img alt="Nest" src="{{ asset('public/asset/imgs/theme/icons/icon-cart.svg') }}" />
                                         <span class="pro-count blue">{{user_cart()}}</span>
                                     </a>
                                     <a href='{{ route("cart") }}'><span class="lable">Cart</span></a>
-                                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                        <ul>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href='shop-product-right.html'><img alt="Nest"
-                                                            src="{{ asset('public/assets/imgs/shop/thumbnail-3.jpg') }}" /></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href='shop-product-right.html'>Daisy Casual Bag</a></h4>
-                                                    <h4><span>1 × </span>$800.00</h4>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href='shop-product-right.html'><img alt="Nest"
-                                                            src="{{ asset('public/asset/imgs/shop/thumbnail-2.jpg') }}" /></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href='shop-product-right.html'>Corduroy Shirts</a></h4>
-                                                    <h4><span>1 × </span>$3200.00</h4>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="shopping-cart-footer">
-                                            <div class="shopping-cart-total">
-                                                <h4>Total <span>$4000.00</span></h4>
-                                            </div>
-                                            <div class="shopping-cart-button">
-                                                <a class='outline' href='shop-cart.html'>View cart</a>
-                                                <a href='shop-checkout.html'>Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 
                                 <div class="header-action-icon-2">
@@ -306,24 +220,17 @@
                                             @if(Session::has('user_name'))
                                             
                                             <li>
-                                                <a href='page-account.html'><i class="fi fi-rs-user mr-10"></i>My
+                                                <a href='{{ route("my_account") }}'><i class="fi fi-rs-user mr-10"></i>My
                                                     Account</a>
                                             </li>
-                                            <li>
-                                                <a href='page-account.html'><i
-                                                        class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
-                                            </li>
-                                            <li>
-                                                <a href='page-account.html'><i class="fi fi-rs-label mr-10"></i>My
-                                                    Voucher</a>
-                                            </li>
+                                            
                                             <li>
                                                 <a href='{{ route("wishlists") }}'><i class="fi fi-rs-heart mr-10"></i>My
                                                     Wishlist</a>
                                             </li>
                                             <li>
-                                                <a href='page-account.html'><i
-                                                        class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
+                                                <a href='{{ route("cart") }}'><i class="fi fi-rs-shopping-cart mr-10"></i>My
+                                                    Cart</a>
                                             </li>
                                             <li>
                                                 <a href='{{ route("logout") }}'><i class="fi fi-rs-sign-out mr-10"></i>Sign
@@ -353,9 +260,9 @@
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
                         @if(site_settings()->site_logo == '')
-                        <a href='index.html'><img src="{{ asset('public/asset/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                        <a href='{{ url("/") }}'><img src="{{ asset('public/asset/imgs/theme/logo.svg') }}" alt="logo" /></a>
                         @else
-                        <img src="{{asset('public/site/'.site_settings()->site_logo)}}" alt="{{site_settings()->site_name}}">
+                        <a href='{{ url("/") }}'><img src="{{asset('public/site/'.site_settings()->site_logo)}}" alt="{{site_settings()->site_name}}"></a>
                         @endif
                     </div>
                     <div class="header-nav d-none d-lg-flex">
@@ -363,8 +270,7 @@
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                             <nav>
                                 <ul>
-                                    <li class="hot-deals"><img src="{{ asset('public/asset/imgs/theme/icons/icon-hot.svg') }}"
-                                            alt="hot deals" /><a href='shop-grid-right.html'>Deals</a></li>
+                                    
                                     
                                     <li class="position-static">
                                         <a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
@@ -385,39 +291,13 @@
                                             </li>
                                             @endif
                                             @endforeach
-                                            <li class="sub-mega-menu sub-mega-menu-width-34">
-                                                <div class="menu-banner-wrap">
-                                                    <a href='shop-product-right.html'><img
-                                                            src="{{ asset('public/asset/imgs/banner/banner-menu.png') }}" alt="Nest" /></a>
-                                                    <div class="menu-banner-content">
-                                                        <h4>Hot deals</h4>
-                                                        <h3>
-                                                            Don't miss<br />
-                                                            Trending
-                                                        </h3>
-                                                        <div class="menu-banner-price">
-                                                            <span class="new-price text-success">Save to 50%</span>
-                                                        </div>
-                                                        <div class="menu-banner-btn">
-                                                            <a href='shop-product-right.html'>Shop now</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="menu-banner-discount">
-                                                        <h3>
-                                                            <span>25%</span>
-                                                            off
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                           
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a href='page-about-2.html'>About</a>
-                                    </li>
-                                    <li>
-                                        <a href='page-contact.html'>Contact</a>
-                                    </li>
+                                    @foreach(site_pages() as $pages)
+                                    <li><a href="{{$pages->page_slug}}"><i class="fa fa-angle-right" aria-hidden="true"></i> {{$pages->page_title}}</a></li>
+                                    @endforeach
+                                    
                                 </ul>
                             </nav>
                         </div>
@@ -451,7 +331,7 @@
                                         <li>
                                             <div class="shopping-cart-img">
                                                 <a href='shop-product-right.html'><img alt="Nest"
-                                                        src="{{ asset('public/asset/imgs/shop/thumbnail-3.jpg') }}" /></a>
+                                                        src="" /></a>
                                             </div>
                                             <div class="shopping-cart-title">
                                                 <h4><a href='shop-product-right.html'>Plain Striola Shirts</a></h4>
@@ -464,7 +344,7 @@
                                         <li>
                                             <div class="shopping-cart-img">
                                                 <a href='shop-product-right.html'><img alt="Nest"
-                                                        src="{{ asset('public/asset/imgs/shop/thumbnail-4.jpg') }}" /></a>
+                                                        src="" /></a>
                                             </div>
                                             <div class="shopping-cart-title">
                                                 <h4><a href='shop-product-right.html'>Macbook Pro 2024</a></h4>
@@ -496,7 +376,11 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href='index.html'><img src="{{ asset('public/asset/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                    @if(site_settings()->site_logo == '')
+                    <a href='{{ url("/") }}'><img src="{{ asset('public/asset/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                    @else
+                    <a href='{{ url("/") }}'><img src="{{asset('public/site/'.site_settings()->site_logo)}}" alt="{{site_settings()->site_name}}"></a>
+                    @endif
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">

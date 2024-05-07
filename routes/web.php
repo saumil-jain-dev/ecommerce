@@ -118,11 +118,14 @@ use App\Http\Controllers\DiscountController;
     Route::post('/change_address',[UserController::class,'change_address']);
     Route::get('/checkout',[UserController::class,'checkout']);
     Route::post('/checkout',[UserController::class,'order_products']);
+    Route::post('/order/complete',[UserController::class,'complete_order']);
 
     Route::get('/success',[PaymentController::class,'success']);
     Route::get('pay-with-paypal/{id}',[PaymentController::class,'payWithpaypal']);
     Route::get('/paypal/status',[PaymentController::class,'getPaymentStatus'])->name('paypal-status');
     Route::get('/pay-with-razorpay/{id}/{text}',[PaymentController::class,'yb_payWithRazorpay']);
+
+    Route::get('my-account',[UserController::class,'my_account'])->name('my_account');
 
     Route::get('/my_orders', [UserController::class, 'my_orders']);
     Route::post('/show_order_product', [UserController::class, 'show_order_products']);

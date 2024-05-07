@@ -2,55 +2,58 @@
 @section('title','Checkout')
 @section('content')
 
-
-<div id="site-content">
-    <div class="message"></div>
-    <div class="container">
+ <main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href='{{ url("/") }}' rel='nofollow'><i class="fi-rs-home mr-5"></i>Home</a>
+                <span></span> Shop
+                <span></span> Checkout
+            </div>
+        </div>
+    </div>
+    <div class="container mb-80 mt-50">
         <div class="row">
-            <div class="col-12">
-                @if(Session::has('error'))
-                    <p class="alert alert-danger">{{Session::get('error')}}</p>
-                @endif
-                @if(Session::has('success'))
-                    <p class="alert alert-success">{{Session::get('success')}}</p>
-                @endif
-                <!-- <form action=""></form> -->
-                <div id="smartwizard">
-                    <ul class="nav">
-                        <li class="nav-item">
-                        <a class="nav-link" href="#step-1">
-                            <div class="num">1</div>
-                            Delivery Address
-                        </a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#step-2">
-                            <span class="num">2</span>
-                            Product Details
-                        </a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#step-3">
-                            <span class="num">3</span>
-                            Confirm Order
-                        </a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-                            <form id="form-1" class="content-box row mb-0">
-                                <div class="col-md-6 form-group">
-                                    <label class="col-form-label">Name : </label>
-                                    <input type="text" class="form-control" name="name" value="{{$user->name}}" required>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label class="col-form-label">Phone No. : </label>
-                                    <input type="number" class="form-control" name="phone" value="{{$user->phone}}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="col-form-label">Country : </label>
-                                    <select class="form-control select-country" name="country" required>
+            <div class="col-lg-8 mb-40">
+                <h1 class="heading-2 mb-10">Checkout</h1>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="row mb-50">
+                    <div class="col-lg-6 mb-sm-15 mb-lg-0 mb-md-3">
+                        
+                        
+                    </div>
+                    <div class="col-lg-6">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <h4 class="mb-30">Billing Details</h4>
+                    <form method="post" id="order_checkout_form">
+                        @csrf
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <input type="text" required="" name="fname" placeholder="First name *">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <input type="text" required="" name="lname" placeholder="Last name *">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <input type="text" name="billing_address" required="" placeholder="Address *">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <input type="text" name="billing_address2" placeholder="Address line2">
+                            </div>
+                        </div>
+                        <div class="row shipping_calculator">
+                            <div class="form-group col-lg-6">
+                                <div class="custom_select">
+                                    <select class="form-control select-active select-country" name="country">
                                         <option value="" disabled selected>Select Country</option>
                                         @if(!empty($country))
                                             @foreach($country as $countries)
@@ -58,12 +61,14 @@
                                                 <option value="{{$countries->id}}" data-country="{{$countries->id}}" {{$selected}}>{{$countries->country_name}}</option>
                                             @endforeach
                                         @endif
+                                        
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label  class="col-form-label">State : </label>
-                                    <select class="form-control select-state" name="state" id="state" required>
-                                        <option value="" disabled>First Select Country</option>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <div class="custom_select">
+                                    <select class="form-control select-active select-state" name="state" id="state" required>
+                                        <option value="" disabled selected>First Select Country</option>
                                         @if(!empty($state))
                                             @foreach($state as $states)
                                                 @php $selected = ($states->id == $user->state) ? 'selected' : ''; @endphp
@@ -72,10 +77,13 @@
                                         @endif
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label class="col-form-label">City : </label>
-                                    <select class="form-control checkout-city" name="city" id="city" required>
-                                        <option value="" disabled>First Select State</option>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <div class="custom_select">
+                                    <select class="form-control select-active checkout-city" name="city" id="city" required>
+                                        <option value="" disabled selected>First Select State</option>
                                         @if(!empty($city))
                                             @foreach($city as $cities)
                                                 @if($user->city != '')
@@ -88,172 +96,151 @@
                                         @endif
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label class="col-form-label">Address : </label>
-                                    @if($user->address != '')
-                                        <input type="text" class="form-control" name="address" value="{{$user->address}}" required>
-                                    @else
-                                        <input type="text" class="form-control" name="address" value="" required>
-                                    @endif
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="col-form-label">Pin Code : </label>
-                                        @if($user->pin_code != '')
-                                            <input type="number" class="form-control" name="code" value="{{$user->pin_code}}" required>
-                                        @else
-                                            <input type="number" class="form-control" name="code" value="" required>
-                                        @endif
-                                </div>
-                            </form>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <input required="" type="text" name="zipcode" placeholder="Postcode / ZIP *">
+                            </div>
                         </div>
-                        <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
-                            <form id="form-2" class="content-box">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Qty</th>
-                                        <th>Total</th>
-                                    </thead>
-                                    <tbody>
-                                        @php $total = 0; @endphp
-                                        @foreach($products as $product)
-                                            <input type="hidden" name="product_id[]" value="{{$product->id}}">
-                                            @if(count((array) request()->get('product_attr')) > 1)
-                                            <input type="hidden" name="product_attr[{{$product->id}}]" value="{{request()->get('product_attr')[$product->id]}}">
-                                            @else
-                                                @php
-                                                if(is_array(request()->get('product_attr'))){
-                                                    $product_attr = (array) request()->get('product_attr');
-                                                }else{
-                                                    $product_attr = (array) json_decode(request()->get('product_attr'));
-                                                }
-                                                @endphp
-                                                @if($product_attr)
-                                                <input type="hidden" name="product_attr[{{$product->id}}]" value="{{$product_attr[$product->id]}}">
-                                                @endif
-                                            @endif
-                                            @if(is_array(request()->get('product_color')))
-                                            <input type="hidden" name="product_color[{{$product->id}}]" value="{{request()->get('product_color')[$product->id]}}">
-                                            @else
-                                            <input type="hidden" name="product_color[{{$product->id}}]" value="{{request()->get('product_color')}}">
-
-                                            @endif
-                                            @if($product->shipping_charges == 'free')
-                                                @php $shipping =0; @endphp
-                                            @else
-                                                @php
-                                                    $city = \App\Models\Users::where('user_id',session()->get('user_id'))->pluck('city')->first();
-                                                    $shipping = \App\Models\City::where('id',$city)->pluck('cost_city')->first();
-                                                @endphp
-                                            @endif
-                                            <tr>
-                                                <td class="d-flex flex-row">
-                                                    <img class="pic-1" src="{{asset('public/products/'.$product->thumbnail_img)}}" alt="" width="70px">
-                                                    <div class="ml-2">{{$product->product_name}}
-                                                        @if($product->color_code != '')
-                                                            <span><b>Color : </b> <label for="color{{$product->id}}" style="background-color:{{$product->color_code}};cursor:auto;"></label></span>
-                                                        @endif
-                                                        @if($product->attrvalues != '')
-                                                            @php
-                                                                echo '<ul>';
-                                                                $p_attr = array_filter(explode(',',$product->attrvalues));
-                                                                for($i=0;$i<count($p_attr);$i++){
-                                                                    $atr_val = array_filter(explode(':',$p_attr[$i]));
-                                                                    echo '<li>';
-                                                                    foreach($attributes as $attr_array){
-                                                                        if($attr_array->id == $atr_val[0]){
-                                                                            echo '<span><b>'.$attr_array->title.':</b></span>';
-                                                                        }
-                                                                    }
-                                                                    foreach($attrvalues as $attr_vals){
-                                                                        if($attr_vals->id == $atr_val[1] && $atr_val[0] == $attr_vals->attribute){
-                                                                            echo ' <span>'.$attr_vals->value.'</span>';
-                                                                        }
-                                                                    }
-                                                                    echo '</li>';
-                                                                }
-                                                                echo '</ul>';
-                                                            @endphp
-                                                        @endif
-                                                        @if($shipping == '0')
-                                                            </br><span>Free Delivery</span>
-                                                        @else
-                                                            </br><span>Delivery Charges : {{site_settings()->currency}}{{$shipping}}</span>
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    {{site_settings()->currency}}{{get_product_price($product->id)->new_price}}
-                                                </td>
-                                                <td>
-                                                    @if(is_array(request()->get('qty')))
-                                                    <input type="number" class="form-control item-qty" style="width:80px;" min='1' name="qty[{{$product->id}}]"value="{{request()->get('qty')[$product->id]}}">
-                                                    @else
-                                                    <input type="number" class="form-control item-qty" style="width:80px;" min='1' name="qty[{{$product->id}}]"value="{{request()->get('qty')}}">
-                                                    @endif
-
-                                                    <input type="number" class="product-price" name="price[{{$product->id}}]" value="{{get_product_price($product->id)->new_price}}" hidden>
-
-                                                    <input type="number" class="product-shipping" value="{{$shipping}}" hidden>
-                                                </td>
-                                                @if(is_array(request()->get('qty')))
-                                                    <td>
-                                                    {{site_settings()->currency}}<span class="product-total">{{(get_product_price($product->id)->new_price*request()->get('qty')[$product->id]) + $shipping}}</span>
-                                                    </td>
-                                                    @php $total += (get_product_price($product->id)->new_price*request()->get('qty')[$product->id]) + $shipping;  @endphp
-                                                @else
-                                                <td>
-                                                    {{site_settings()->currency}}<span class="product-total">{{(get_product_price($product->id)->new_price*request()->get('qty')) + $shipping}}</span>
-                                                    @php $total += (get_product_price($product->id)->new_price*request()->get('qty')) + $shipping;  @endphp
-                                                @endif
-                                                </td>
-                                            </tr>
-
-                                        @endforeach
-                                            <tr>
-                                                <td colspan="3" align="right"><b>Total Amount</b></td>
-                                                <td class="">{{site_settings()->currency}}<span class="total-amount">{{$total}}</span></td>
-                                            </tr>
-                                    </tbody>
-                                </table>
-                            </form>
+                        <div class="row">
+                            
+                            <div class="form-group col-lg-6">
+                                <input required="" type="text" name="phone" placeholder="Phone *">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <input required="" type="text" name="email" placeholder="Email address *">
+                            </div>
                         </div>
-                        <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                            <form id="from-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Payment
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="list-group mb-3">
-                                        @foreach($payment_method as $pay_button)
-                                            @if($pay_button->payment_name == 'Paypal' && $pay_button->payment_status == '1')
-                                            <li class="list-group-item">
-                                                <input type="radio" name="pay_method" value="paypal" required>
-                                                <img src="{{asset('public/images/paypal.png')}}" alt="" height="20px">
-                                            </li>
-                                            @endif
-                                            @if($pay_button->payment_name == 'Razorpay' && $pay_button->payment_status == '1')
-                                            <li class="list-group-item">
-                                                <input type="radio" name="pay_method" value="razorpay" required>
-                                                <img src="{{asset('public/images/razorpay.png')}}" alt="" height="20px">
-                                                <input type="text" hidden name="razor_key" value="{{env('RAZOR_KEY')}}">
-                                            </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="form-group mb-30">
+                            <textarea rows="5" placeholder="Additional information" name="additional_info"></textarea>
                         </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="border p-40 cart-totals ml-30 mb-50">
+                    <div class="d-flex align-items-end justify-content-between mb-30">
+                        <h4>Your Order</h4>
+                        @php $total = 0; @endphp
+                        <h6 class="text-muted">Subtotal:{{site_settings()->currency}}<span class="total-amount">{{$total}}</span></h6>
                     </div>
+                    <div class="divider-2 mb-30"></div>
+                    <div class="table-responsive order_table checkout">
+                        <table class="table no-border">
+                            <tbody>
+                                @foreach($products as $product)
+                                    <input type="hidden" name="product_id[]" value="{{$product->id}}">
+                                    @if(count((array) request()->get('product_attr')) > 1)
+                                    <input type="hidden" name="product_attr[{{$product->id}}]" value="{{request()->get('product_attr')[$product->id]}}">
+                                    @else
+                                        @php
+                                        if(is_array(request()->get('product_attr'))){
+                                            $product_attr = (array) request()->get('product_attr');
+                                        }else{
+                                            $product_attr = (array) json_decode(request()->get('product_attr'));
+                                        }
+                                        @endphp
+                                        @if($product_attr)
+                                        <input type="hidden" name="product_attr[{{$product->id}}]" value="{{$product_attr[$product->id]}}">
+                                        @endif
+                                    @endif
+                                    @if(is_array(request()->get('product_color')))
+                                    <input type="hidden" name="product_color[{{$product->id}}]" value="{{request()->get('product_color')[$product->id]}}">
+                                    @else
+                                    <input type="hidden" name="product_color[{{$product->id}}]" value="{{request()->get('product_color')}}">
+
+                                    @endif
+                                    @if($product->shipping_charges == 'free')
+                                        @php $shipping =0; @endphp
+                                    @else
+                                        @php
+                                            $city = \App\Models\Users::where('user_id',session()->get('user_id'))->pluck('city')->first();
+                                            $shipping = \App\Models\City::where('id',$city)->pluck('cost_city')->first();
+                                        @endphp
+                                    @endif
+                                <tr>
+                                    <td class="image product-thumbnail"><img src="{{asset('public/products/'.$product->thumbnail_img)}}" alt="#"></td>
+                                    <td>
+                                        <h6 class="w-160 mb-5"><a class='text-heading' href="{{url('/product/'.$product->slug)}}">{{$product->product_name}}</a></h6></span>
+                                        @if($product->color_code != '')
+                                            <span><b>Color : </b> <label for="color{{$product->id}}" style="background-color:{{$product->color_code}};cursor:auto;"></label></span>
+                                        @endif
+                                        @if($product->attrvalues != '')
+                                            @php
+                                                echo '<ul>';
+                                                $p_attr = array_filter(explode(',',$product->attrvalues));
+                                                for($i=0;$i<count($p_attr);$i++){
+                                                    $atr_val = array_filter(explode(':',$p_attr[$i]));
+                                                    echo '<li>';
+                                                    foreach($attributes as $attr_array){
+                                                        if($attr_array->id == $atr_val[0]){
+                                                            echo '<span><b>'.$attr_array->title.':</b></span>';
+                                                        }
+                                                    }
+                                                    foreach($attrvalues as $attr_vals){
+                                                        if($attr_vals->id == $atr_val[1] && $atr_val[0] == $attr_vals->attribute){
+                                                            echo ' <span>'.$attr_vals->value.'</span>';
+                                                        }
+                                                    }
+                                                    echo '</li>';
+                                                }
+                                                echo '</ul>';
+                                            @endphp
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <h6 class="text-muted pl-20 pr-20">x {{request()->get('qty')[$product->id]}}</h6>
+                                        <input type="hidden" class="form-control item-qty" style="width:80px;" min='1' name="qty[{{$product->id}}]"value="{{request()->get('qty')[$product->id]}}">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="product-price" name="price[{{$product->id}}]" value="{{get_product_price($product->id)->new_price}}" hidden>
+                                        <input type="number" class="product-shipping" value="{{$shipping}}" hidden>
+                                        @if(is_array(request()->get('qty')))
+                                            <td>
+                                            {{site_settings()->currency}}<span class="product-total">{{(get_product_price($product->id)->new_price*request()->get('qty')[$product->id]) + $shipping}}</span>
+                                            </td>
+                                            @php $total += (get_product_price($product->id)->new_price*request()->get('qty')[$product->id]) + $shipping;  @endphp
+                                            <input type="hidden" name="amt" value="{{ $total }}">
+                                        @else
+                                        <td>
+                                            {{site_settings()->currency}}<span class="product-total">{{(get_product_price($product->id)->new_price*request()->get('qty')) + $shipping}}</span>
+                                            @php $total += (get_product_price($product->id)->new_price*request()->get('qty')) + $shipping;  @endphp
+                                            <input type="hidden" name="amt" value="{{ $total }}">
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="payment ml-30">
+                    <h4 class="mb-30">Payment</h4>
+                    <div class="payment_option">
+                        
+                        <div class="custome-radio">
+                            <input class="form-check-input" required="" type="radio" name="pay_method" id="exampleRadios4" checked="" value="cod">
+                            <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Cash on delivery</label>
+                        </div>
+                        
+                    </div>
+                    <div class="payment-logo d-flex">
+                        <img class="mr-15" src="assets/imgs/theme/icons/payment-paypal.svg" alt="">
+                        <img class="mr-15" src="assets/imgs/theme/icons/payment-visa.svg" alt="">
+                        <img class="mr-15" src="assets/imgs/theme/icons/payment-master.svg" alt="">
+                        <img src="assets/imgs/theme/icons/payment-zapper.svg" alt="">
+                    </div>
+                    <a href="#" class="btn btn-fill-out btn-block mt-30">Place an Order<i class="fi-rs-sign-out ml-15"></i></a>
+                    <input type="submit" value="Place an Order" class="btn btn-fill-out btn-block mt-30">
+                </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
-</div>
+</main>
 @stop
 @section('pageJsScripts')
 <script src="https://checkout.razorpay.com/v1/checkout.js" type="text/javascript"></script>

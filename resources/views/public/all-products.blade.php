@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="product-content-wrap">
                                     <div class="product-category">
-                                        <a href='shop-grid-right.html'>{{$item->brand_name}}</a>
+                                        <a href='javascript:void(0)'>{{$item->brand_name}}</a>
                                     </div>
                                     <h2><a href="{{url('/product/'.$item->slug)}}">{{substr($item->product_name,0,25).'...'}}</a></h2>
                                     
@@ -58,7 +58,7 @@
                                         </div>
                                         
                                         <div class="add-cart">
-                                            <a class='add' href='shop-cart.html'><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                            <a class='add product-add-to-cart' href='javascript:void(0)' data-id="{{ $item->id }}" data-user="{{session()->get('user_id')}}"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
                                         </div>
                                     </div>
                                 </div>

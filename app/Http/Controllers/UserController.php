@@ -35,6 +35,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 
+
+
 class UserController extends Controller
 {
     /**
@@ -143,36 +145,38 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'img' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'phone' => 'required',
+            'email' => 'required|unique:users,email,' . $id . ',user_id',
+            'phone' => 'required|unique:users,phone,' . $id . ',user_id',
         ]);
 
-        if ($request->img != '') {
-            $path = public_path() . '/users/';
-            //code for remove old file
-            if ($request->old_img != ''  && $request->old_img != null) {
-                $file_old = $path . $request->old_img;
-                if (file_exists($file_old)) {
-                    unlink($file_old);
-                }
-            }
-            //upload new file
-            $file = $request->img;
-            $image = $request->img->getClientOriginalName();
-            $file->move($path, $image);
-        } else {
-            $image = $request->old_img;
-        }
+
+        // if ($request->img != '') {
+        //     $path = public_path() . '/users/';
+        //     //code for remove old file
+        //     if ($request->old_img != ''  && $request->old_img != null) {
+        //         $file_old = $path . $request->old_img;
+        //         if (file_exists($file_old)) {
+        //             unlink($file_old);
+        //         }
+        //     }
+        //     //upload new file
+        //     $file = $request->img;
+        //     $image = $request->img->getClientOriginalName();
+        //     $file->move($path, $image);
+        // } else {
+        //     $image = $request->old_img;
+        // }
 
         $users = Users::where(['user_id' => $id])->update([
-            'user_img' => $image,
+            // 'user_img' => $image,
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
-            'city' => $request->input('city'),
-            'address' => $request->input('address'),
-            'state' => $request->input('state'),
-            'pin_code' => $request->input('code'),
-            'country' => $request->input('country'),
+            'email' => $request->input('email'),
+            // 'city' => $request->input('city'),
+            // 'address' => $request->input('address'),
+            // 'state' => $request->input('state'),
+            // 'pin_code' => $request->input('code'),
+            // 'country' => $request->input('country'),
         ]);
         return $users;
     }
@@ -383,7 +387,8 @@ class UserController extends Controller
             }
             return view('public.cart', ['attrvalues' => $attrvalues, 'attributes' => $attributes, 'products' => $products, 'color' => $color]);
         } else {
-            return view('public.local-cart');
+            return redirect('user_login');
+            // return view('public.local-cart');
         }
     }
 
@@ -463,15 +468,27 @@ class UserController extends Controller
                     'city' => $city,
                     'country' => $country,
                 ]);
+                Cart::where('product_user',$user_id)->where('product_id',$product_id)->delete();
                 $request->session()->put('user_city', $city);
-                $cart = new Cart();
-                $cart->product_id = $product_id;
-                $cart->product_user = $user_id;
-                $cart->attrvalues = $attrvalues;
-                $cart->color = $color_id;
-                $result = $cart->save();
+                $result = Cart::updateOrCreate(
+                    ['product_user' => $user_id, 'product_id' => $product_id],
+                    ['attrvalues' => $attrvalues, 'color' => $color_id]
+                );
+
 
                 $count = Cart::where('product_user', $user_id)->count();
+
+                //remove wishlist item
+                $userData = User::where('user_id',$user_id)->first();
+                $wishlist_ids = explode(',',$userData->wishlist);
+                if(in_array($product_id,$wishlist_ids)){
+                    $index = array_search($product_id, $wishlist_ids);
+                    unset($wishlist_ids[$index]);
+
+                    $newWishlistIds = implode(",",$wishlist_ids);
+
+                    User::where('user_id',$user_id)->update(['wishlist' => $newWishlistIds]);
+                }
 
                 return response()->json(['result' => $result, 'count' => $count]);
             } else {
@@ -732,5 +749,77 @@ class UserController extends Controller
         } else {
             return abort('404');
         }
+    }
+
+    public function complete_order(Request $request) {
+        $request = $request->all();
+        $user_id = session()->get('user_id');
+        Users::where('user_id',$user_id)->update([
+            'country'=>$request['country'],
+            'state'=>$request['state'],
+            'city'=>$request['city'],
+            'address'=>$request['billing_address'].$request['billing_address2'],
+            'pin_code'=>$request['zipcode'],
+        ]);
+        $total_qty = 0;
+        foreach($request['qty'] as $key => $value){
+            $total_qty += $value;
+        }
+
+        $payment_id = Str::random('8');
+        $payment = new PaymentData();
+        $payment->amount = $request['amt'];
+        $payment->txn_id = $payment_id;
+        $payment->pay_method = 'cod';
+        $payment->pay_status = 1;
+        $payment->save();
+
+        $order = new Order();
+        $order->fname = $request['fname'];
+        $order->lname = $request['lname'];
+        $order->user = $user_id;
+        $order->products = count($request['product_id']);
+        $order->qty = $total_qty;
+        $order->pay_id = $payment->id;
+        $order->amount = $request['amt'];
+        $order->email = $request['email'];
+        $order->phone = $request['phone'];
+        $order->additional_info = isset($request['additional_info']) ? $request['additional_info'] : null;
+        $order->save();
+
+        $product_qty = (array) $request['qty'];
+        $product_color = (array) $request['product_color'];
+        $product_attr = (array) $request['product_attr'];
+        $product_amount = (array) $request['price'];
+
+        for($i=0;$i<count($request['product_id']);$i++){
+            $order_products = new OrderProducts();
+            $order_products->order_id = $order->id;
+            $order_products->product_id = $request['product_id'][$i];
+            $order_products->product_qty = $product_qty[$request['product_id'][$i]];
+            if(!empty($product_color)){
+              $order_products->product_color = $product_color[$request['product_id'][$i]];
+            }
+            if(!empty($product_attr)){
+              $order_products->product_attr = $product_attr[$request['product_id'][$i]];
+            }
+            $order_products->product_amount = $product_amount[$request['product_id'][$i]];
+            $order_products->product_delivery = 0;
+            $order_products->save();
+
+            DB::table('cart')->where('product_user',$user_id)->where('product_id',$request['product_id'][$i])->delete();
+        }
+
+        return response()->json(1);
+    }
+
+    public function my_account(Request $request) {
+        $user_id = session()->get('user_id');
+        if(!$user_id){
+            return redirect()->route('user_login');
+        }
+        $userData = User::where('user_id',$user_id)->first();
+        $orderData = Order::where('user',$user_id)->get();
+        return view('public.my_account',compact('userData','orderData'));
     }
 }
