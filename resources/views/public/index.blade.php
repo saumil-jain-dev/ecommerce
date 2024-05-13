@@ -92,7 +92,7 @@
         </div>  
     </section>
 
-    @if($latest_products->isNotEmpty())
+    @if($today_deal_products->isNotEmpty())
     <section class="product-tabs section-padding position-relative">
         <div class="container">
             <div class="section-title style-2 wow animate__animated animate__fadeIn">
@@ -174,6 +174,7 @@
                     <div class="row product-grid-4">
                         
                         @foreach($flash_products as $item)
+                        @if(isset($item->flash_date_range))
                         @php 
                           date_default_timezone_set('Asia/Kolkata');
                           $datetimes = explode('-',$item->flash_date_range);
@@ -226,6 +227,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @endif
                         @endforeach
                         

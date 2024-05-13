@@ -48,7 +48,21 @@
                                     <div class="detail-info pr-30 pl-30">
                                         <h2 class="title-detail">{{ $product->product_name }}</h2>
                                         <div class="product-detail-rating">
-                                            
+                                            @if($product->rating_col > 0)
+                                              @php $rating = ceil($product->rating_sum/$product->rating_col);  @endphp  
+                                            @else
+                                              @php $rating = 0;  @endphp  
+                                            @endif
+                                            <div class="product-rate-cover text-end">
+                                                <div class="product-rate d-inline-block">
+                                                    <div class="product-rating" style="width: {{ $rating  }}0%">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <i class="fa fa-star" style="color: {{ $i <= $rating ? 'gold' : '' }}"></i>
+                                                        @endfor
+                                                    </div>
+                                                </div>
+                                                <span class="font-small ml-5 text-muted"> ({{$product->rating_col}} reviews)</span>
+                                            </div>
                                         </div>
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
@@ -106,6 +120,9 @@
                                         <li class="nav-item">
                                             <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">Description</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Reviews ({{ $product->rating_col }})</a>
+                                        </li>
                                         
                                     </ul>
                                     <div class="tab-content shop_info_tab entry-main-content">
@@ -114,10 +131,80 @@
                                                 {!!htmlspecialchars_decode($product->description)!!}
                                             </div>
                                         </div>
-                                        
+                                        <div class="tab-pane fade" id="Reviews">
+                                            <!--Comments-->
+                                            <div class="comments-area">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <h4 class="mb-30">Customer questions & answers</h4>
+                                                        <div class="comment-list">
+                                                            @if($reviews->isNotEmpty())
+                                                            @foreach($reviews as $review)
+                                                            <div class="single-comment justify-content-between d-flex mb-30">
+                                                                <div class="user justify-content-between d-flex">
+                                                                    <div class="thumb text-center">
+                                                                        
+                                                                        <a href="javascript:void(0)" class="font-heading text-brand">{{$review->name}}</a>
+                                                                    </div>
+                                                                    <div class="desc">
+                                                                        <div class="d-flex justify-content-between mb-10">
+                                                                            <div class="d-flex align-items-center">
+                                                                                <span class="font-xs text-muted">{{ \Carbon\Carbon::parse($review->created_at)->format('F j, Y \a\t g:i a') }}</span>
+                                                                            </div>
+                                                                            <h6><i class="fa fa-star"></i> {{$review->rating}}</h6>
+                                                                        </div>
+                                                                        <p class="mb-10">{{$review->desc}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @endforeach
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <!--comment form-->
+                                            <div class="comment-form">
+                                                <h4 class="mb-15">Add a review</h4>
+                                                <div class="product-rate d-inline-block mb-30"></div>
+                                                <div class="row">
+                                                    <div class="col-lg-8 col-md-12">
+                                                        <form class="form-contact comment_form" action="#" id="commentForm">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <input class="form-control" name="name" id="name" type="text" placeholder="Name" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <input class="form-control" name="email" id="email" type="email" placeholder="Email" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <input class="form-control" name="website" id="website" type="text" placeholder="Website" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <button type="submit" class="button button-contactForm">Submit Review</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                             @if($related->isNotEmpty($related))
                             <div class="row mt-60">
                                 <div class="col-12">

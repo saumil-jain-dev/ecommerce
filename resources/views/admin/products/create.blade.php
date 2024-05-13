@@ -165,21 +165,7 @@
                             <h3 class="card-title">Product Variation</h3>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <span>Colors</span>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <select class="form-control select2" name="color[]" id="" multiple="multiple">
-                                            <option value="" disabled>Select Colors</option>
-                                            @foreach($colors as $color)
-                                                <option value="{{$color->id}}">{{$color->color_name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="form-group">
                                 <table class="table">
                                     <thead>
