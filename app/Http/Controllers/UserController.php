@@ -33,6 +33,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
 
 
 
@@ -203,6 +204,29 @@ class UserController extends Controller
             ]);
             return $user;
         }
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        // Retrieve the user information from Google using the authorization code
+        $user = Socialite::driver('google')->user();
+        // Check if the user exists in your database, if not, create one
+        $authenticatedUser = User::firstOrCreate([
+            'name' => $user->getName(),
+            'email' => $user->getEmail()
+        ]);
+
+        Session::put('user', '1');
+        Session::put('user_name', $authenticatedUser->name);
+        Session::put('user_id', $authenticatedUser->user_id);
+        Session::put('user_city', $authenticatedUser->city);
+        // Log in the user
+        return redirect()->route('user_login');
     }
 
     public function login()
