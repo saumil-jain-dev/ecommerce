@@ -23,7 +23,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{$today_orders}}</h3>
+                <h3>{{$today_orders ?? 0}}</h3>
                 <p>Today Orders</p>
               </div>
               <div class="icon">
@@ -37,7 +37,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>{{$products}}</h3>
+                <h3>{{$products ?? 0}}</h3>
                 <p>Products</p>
               </div>
               <div class="icon">
@@ -51,7 +51,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>{{$users}}</h3>
+                <h3>{{$users ?? 0}}</h3>
                 <p>User Registrations</p>
               </div>
               <div class="icon">
