@@ -810,12 +810,16 @@ $(document).ready(function(){
             title: {required:true},
             review: {required:true},
         },
-        message: {
+        messages: {
             title: {required: "Please enter your title"},
             review: {required: "Please enter your review"},
         },
         submitHandler: function(form){
             $('#site-content').append(loader);
+            var user_id = $('#rating_user').val();
+            if(!user_id){
+                window.location.href = site_url + '/user_login'
+            }
             var formdata = new FormData(form);
             $.ajax({
                 url: site_url+'/review/store',
@@ -832,7 +836,7 @@ $(document).ready(function(){
                             showConfirmButton: false,
                             timer: 1500
                           })
-                        setTimeout(function(){ window.location.href = site_url+'/my-reviews';}, 1000);
+                        setTimeout(function(){ window.location.reload()}, 1000);
                     }
                 },
                 error: function (error) {

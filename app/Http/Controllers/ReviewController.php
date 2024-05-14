@@ -64,14 +64,18 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        $insert = new Review();
-        $insert->product = $request->product;
-        $insert->user = $request->user;
-        $insert->title = $request->title;
-        $insert->desc = $request->review;
-        $insert->rating = $request->star;
-        $save = $insert->save();
-        return $save;
+        $insert = Review::updateOrCreate(
+            ['product' => $request->product, 'user' => $request->user],
+            [
+                'title' => $request->title,
+                'desc' => $request->review,
+                'rating' => $request->rating,
+                'approved' => 1
+            ]
+        );
+
+        return 1;
+
     }
 
     /**

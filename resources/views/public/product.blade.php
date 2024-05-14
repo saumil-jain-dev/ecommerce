@@ -1,6 +1,50 @@
 @extends('public.layout')
 @section('title', $product->product_name)
 @section('content')
+<style>
+    .rating {
+    display: inline-block;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    color: #ddd;
+    float: right;
+}
+
+.rating label:before {
+    content: '\2605'; /* Unicode for star character */
+    font-size: 25px;
+}
+
+.rating input:checked ~ label {
+    color: #ffdd57; /* Change color of stars to indicate selected */
+}
+
+.rating input:checked ~ label:before {
+    color: #ffdd57; /* Change color of stars to indicate selected */
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+</style>
 <main class="main">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -149,7 +193,7 @@
                                                                     <div class="desc">
                                                                         <div class="d-flex justify-content-between mb-10">
                                                                             <div class="d-flex align-items-center">
-                                                                                <span class="font-xs text-muted">{{ \Carbon\Carbon::parse($review->created_at)->format('F j, Y \a\t g:i a') }}</span>
+                                                                                <span class="font-xs text-muted">{{ \Carbon\Carbon::parse($review->created_at)->timezone('Asia/Kolkata')->format('F j, Y \a\t g:i a') }}</span>
                                                                             </div>
                                                                             <h6><i class="fa fa-star"></i> {{$review->rating}}</h6>
                                                                         </div>
@@ -167,34 +211,36 @@
                                             <!--comment form-->
                                             <div class="comment-form">
                                                 <h4 class="mb-15">Add a review</h4>
-                                                <div class="product-rate d-inline-block mb-30"></div>
+                                                
                                                 <div class="row">
                                                     <div class="col-lg-8 col-md-12">
-                                                        <form class="form-contact comment_form" action="#" id="commentForm">
+                                                        <form class="form-contact comment_form" id="createReview" method="POST">
                                                             <div class="row">
+
+                                                                <div class="col-sm-6">
+                                                                    <label for="rating">Rate the store:</label><br>
+                                                                    <fieldset class="rating">
+                                                                        <input type="radio" id="star5" name="rating" value="5"><label class="full" for="star5" title="5 stars"></label>
+                                                                        <input type="radio" id="star4" name="rating" value="4"><label class="full" for="star4" title="4 stars"></label>
+                                                                        <input type="radio" id="star3" name="rating" value="3"><label class="full" for="star3" title="3 stars"></label>
+                                                                        <input type="radio" id="star2" name="rating" value="2"><label class="full" for="star2" title="2 stars"></label>
+                                                                        <input type="radio" id="star1" name="rating" value="1"><label class="full" for="star1" title="1 star"></label>
+                                                                    </fieldset>
+                                                                </div>
+                                                                <div class="col-sm-12">
+                                                                    <label for="title">Add a Headline</label>
+                                                                    <input type="text" class="form-control" name="title" placeholder="Enter Title">
+                                                                </div><br>
                                                                 <div class="col-12">
                                                                     <div class="form-group">
-                                                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                                                        <textarea class="form-control w-100" name="review" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <input class="form-control" name="name" id="name" type="text" placeholder="Name" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <input class="form-control" name="email" id="email" type="email" placeholder="Email" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <input class="form-control" name="website" id="website" type="text" placeholder="Website" />
-                                                                    </div>
-                                                                </div>
+                                                                <input type="text" hidden name="product" value="{{$product->id}}">
+                                                                <input type="text" hidden name="user" value="{{Session::get('user_id')}}" id="rating_user">
                                                             </div>
                                                             <div class="form-group">
-                                                                <button type="submit" class="button button-contactForm">Submit Review</button>
+                                                                <input type="submit" class="button button-contactForm" value="Submit Review">
                                                             </div>
                                                         </form>
                                                     </div>
