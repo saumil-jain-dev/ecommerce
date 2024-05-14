@@ -48,6 +48,12 @@
                                             <input type="submit" name="" value="Login" class="btn btn-heading btn-block hover-up">
                                         </div>
                                     </form>
+                                    <div class="form-group">
+                                        <a href="{{ route('auth.google') }}" class="btn btn-google btn-block hover-up">
+                                            <i class="fab fa-google"></i> Login with Google
+                                        </a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
