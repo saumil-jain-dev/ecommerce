@@ -922,7 +922,9 @@ $(document).ready(function(){
 
     $(document).on('click','.order-status',function(){
         var orderId = $(this).attr('data-id');
+        var orderStatus = $(this).attr('data-status');
         $('#custom_order_id').val(orderId);
+        $('#order_status').val(orderStatus);
         $('#exampleModal').modal('show');
     });
 });

@@ -75,7 +75,7 @@ class OrderController extends Controller
                     return $user_details;
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="orders/'.$row->id.'/view_order" class="btn btn-success btn-sm">View</a><a href="javascript:void(0)" class="btn btn-success btn-sm order-status" data-id="'.$row->id.'">Change Status</a>';
+                    $btn = '<a href="orders/'.$row->id.'/view_order" class="btn btn-success btn-sm">View</a><a href="javascript:void(0)" class="btn btn-success btn-sm order-status" data-id="'.$row->id.'" data-status="'.$row->status.'">Change Status</a>';
                     return $btn;
                 })
                 ->rawColumns(['p_id','order_id','user_details','action'])
