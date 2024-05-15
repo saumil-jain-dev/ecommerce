@@ -13,7 +13,7 @@
 
     <!-- show data table -->
     @component('admin.components.data-table',['thead'=>
-        ['S No.','Name','Parent Category','Status','Action']
+        ['S No.','Image','Name','Parent Category','Status','Action']
     ])
         @slot('table_id') category_list @endslot
     @endcomponent
@@ -34,14 +34,15 @@
         ajax: "category",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'image', name: 'image',orderable: false,searchable: false},
             {data: 'category_name', name: 'category_name'},
             {data: 'parent_name', name: 'parent_name'},
             {data: 'status', name: 'status'},
             {
                 data: 'action',
                 name: 'action',
-                orderable: true,
-                searchable: true
+                orderable: false,
+                searchable: false
             }
         ]
     });

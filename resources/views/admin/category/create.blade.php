@@ -36,6 +36,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <span class="col-md-2">Image </span>
+                                <div class="custom-file col-md-7">
+                                    <input type="file" class="custom-file-input" name="img" onChange="readURL(this);">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <img id="image" src="{{asset('public/site/default.png')}}" alt=""  width="100px">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-2">

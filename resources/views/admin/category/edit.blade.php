@@ -39,21 +39,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="form-group row">
-                                <span class="col-md-2">Image</span>
+                            <div class="form-group row">
+                                <span class="col-md-2">Image </span>
                                 <div class="custom-file col-md-7">
-                                    <input type="hidden" class="custom-file-input" name="old_img" value="{{$category->category_icon}}" />
-                                    <input type="file" class="custom-file-input" name="img" onChange="readURL(this);">
+									<input type="hidden" class="custom-file-input" name="old_image" value="{{$category->image}}" />
+                                    <input type="file" class="custom-file-input" name="image" onChange="readURL(this);">
                                     <label class="custom-file-label">Choose file</label>
                                 </div>
                                 <div class="col-md-3 text-right">
-                                    @if($category->category_icon != '')
-                                    <img id="image" src="{{asset('public/category/'.$category->category_icon)}}" alt="" width="150px">
+									@if($category->image != '')
+                                    <img id="image" src="{{asset('public/category/'.$category->image)}}" alt="" width="200px" height="150px">
                                     @else
-                                    <img id="image" src="{{asset('public/category/default.png')}}" alt="" width="150px">
+                                    <img id="image" src="{{asset('public/category/')}}" alt="" width="80px" height="80px">
                                     @endif
+
+                                    {{--<img id="image" src="{{asset('public/site/default.png')}}" alt=""  width="100px">--}}
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-2">

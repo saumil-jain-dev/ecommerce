@@ -25,10 +25,10 @@ class CategoryController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('image', function($row){
-                    if($row->category_icon != ''){
-                        $img = '<img src="'.asset("public/category/".$row->category_icon).'" width="100px">';
+                    if($row->image != ''){
+                        $img = '<img src="'.asset("public/category/".$row->image).'" width="50px">';
                     }else{
-                        $img = '';
+                        $img = '<img src="' . asset("public/site/default.png") . '" width="50px">';
                     }
                     return $img;
                 })
@@ -93,7 +93,7 @@ class CategoryController extends Controller
 
         $category = new Category();
         if($request->img){
-            $category->category_icon = $image;
+            $category->image = $image;
         }
         if($request->order){
             $category->order = $request->order;
@@ -238,6 +238,28 @@ class CategoryController extends Controller
             $this->move_level_up($category->id);
         }
 
+        if($request->image != ''){
+            $path = public_path().'/category/';
+            //code for remove old file
+            if($request->old_image != '' && $request->old_image != null){
+                $file_old = $path.$request->old_image;
+                if(file_exists($file_old)){
+                    unlink($file_old);
+                }
+            }
+
+            //upload new file
+            $file = $request->image;
+            $image = $request->image->getClientOriginalName();
+            $file->move($path, $image);
+        }else{
+            $image = $request->old_image;
+        }
+
+        if($request->image){
+            $category->image = $image;
+        }
+
         $category->meta_title = $meta_title;
         $category->meta_desc = $request->meta_desc;
         $category->category_slug = $slug;
@@ -253,7 +275,7 @@ class CategoryController extends Controller
 
         // $category = Category::where(['id'=>$id])->update([
         //     'category_name'=>$request->input('name'),
-        //     'category_icon'=>$image,
+        //     'image'=>$image,
         //     'meta_title'=>$meta_title,
         //     'meta_desc'=>$request->input('meta_desc'),
         //     'category_slug'=>$slug,
@@ -274,8 +296,16 @@ class CategoryController extends Controller
         $check =Product::where('category',$id)->count();
         // return $child;
         if($child == 0 && $check == 0){
-            $destroy = Category::where(['id'=>$id])->delete();
-            return $destroy;
+            $destroy = Category::find($id);
+            $path = public_path().'/category/';
+            //code for remove old file
+            if($destroy->image != '' && $destroy->image != null){
+                $file = $path.$destroy->image;
+                if(file_exists($file)){
+                    unlink($file);
+                }
+            }
+            return $destroy->delete();
         }else{
             return "You won't Delete this (This Category have children categories or used in Products.)";
         }
