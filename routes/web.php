@@ -1,30 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\homeController;
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SubcategoryController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TaxController;
-use App\Http\Controllers\ColorController;
-use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\AttrvaluesController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\StateController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CityController;
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\homeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\StateController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\PaymentmethodController;
-use App\Http\Controllers\FlashdealController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\FlashdealController;
+use App\Http\Controllers\AttrvaluesController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\PaymentmethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,7 @@ use App\Http\Controllers\DiscountController;
         Route::resource('admin/states',StateController::class);
         Route::resource('admin/cities',CityController::class);
         Route::resource('admin/pages',PagesController::class);
+        Route::resource('admin/blogs',BlogController::class);
         Route::resource('admin/orders',OrderController::class);
         Route::get('admin/orders/{id}/view_order',[OrderController::class,'view_order']);
         Route::post('admin/order-product/delivered',[OrderController::class,'changeDelivery']);

@@ -34,6 +34,10 @@
       height: 200,
     });
 
+    $('.summernote').summernote({
+      height: 200,
+    });
+
     $(function() {
 
       $('input[name="datefilter"]').daterangepicker({

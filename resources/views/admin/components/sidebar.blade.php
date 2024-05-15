@@ -158,6 +158,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{url('admin/blogs')}}" class="nav-link {{(Request::path() == 'admin/blogs')? 'active':''}}">
+              <i class="nav-icon fas fa-file-word"></i>
+              <p>
+                Blogs
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{url('admin/payment-method')}}" class="nav-link {{(Request::path() == 'admin/payment-method')? 'active':''}}">
               <i class="nav-icon fas fa-credit-card"></i>
               <p>
