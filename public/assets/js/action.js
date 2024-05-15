@@ -922,7 +922,8 @@ $(document).ready(function(){
 
     $(document).on('click','.order-status',function(){
         var orderId = $(this).attr('data-id');
-        alert(orderId);
+        $('#custom_order_id').val(orderId);
+        $('#exampleModal').modal('show');
     });
 });
 

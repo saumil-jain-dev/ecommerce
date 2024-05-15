@@ -72,6 +72,7 @@ use App\Http\Controllers\PaymentmethodController;
         Route::resource('admin/orders',OrderController::class);
         Route::get('admin/orders/{id}/view_order',[OrderController::class,'view_order']);
         Route::post('admin/order-product/delivered',[OrderController::class,'changeDelivery']);
+        Route::post('admin/order-status',[OrderController::class,'changeStatus'])->name('order.changeStatus');
         Route::resource('admin/users',UserController::class);
         Route::post('admin/users/block',[UserController::class,'changeStatus']);
         Route::post('admin/page_showIn_header',[PagesController::class,'show_in_header']);

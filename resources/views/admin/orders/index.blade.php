@@ -19,6 +19,40 @@
     @endcomponent
 
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Status</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post"  action="{{ route('order.changeStatus') }}">
+            @csrf
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="status">Select Order Status</label>
+                    <select class="form-control" name="order_status" id="order_status">
+                        <option value="pending">Pending</option>
+                        <option value="confirm">Confirm</option>
+                        <option value="dispatch">Dispatch</option>
+                        <option value="complete">Complete</option>
+                        <option value="cancel">Cancel</option>
+                    </select>
+                </div>
+                <input type="hidden" name="custom_order_id" id="custom_order_id">
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Change Status">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 @stop
 
 @section('pageJsScripts')
@@ -47,13 +81,6 @@
                 searchable: true
             }
         ]
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.order-status').on('click',function(){
-            alert($(this).attr('data-id'));
-        });
     });
 </script>
 @stop

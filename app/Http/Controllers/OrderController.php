@@ -43,8 +43,10 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->editColumn('order_id', function($row){
                     $order_id = 'ODR00'.$row->id;
-                    if (strpos($row->delivery, '0') !== false) {
+                    if ($row->status == "pending" || $row->status == "confirm" || $row->status == "dispatch" || $row->status == "cancel") {
                         $order_id .= '<br><span class="text-danger">( '.ucfirst($row->status).' )</span>';
+                    }else{
+                         $order_id .= '<br><span class="text-success">( '.ucfirst($row->status).' )</span>';
                     }
                     return $order_id;
                 })
@@ -175,6 +177,12 @@ class OrderController extends Controller
 
         $order = Order::find($request->id);
         return view('admin.orders.view_order',['products'=>$products,'order'=>$order,'attributes'=>$attributes,'attrvalues'=>$attrvalues,'colors'=>$color]);
+    }
+
+    public function changeStatus(Request $request) {
+
+        $order = Order::where('id',$request->custom_order_id)->update(['status' => $request->order_status]);
+        return view('admin.orders.index');
     }
 
 }
