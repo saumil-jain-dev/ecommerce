@@ -133,6 +133,7 @@ use App\Http\Controllers\PaymentmethodController;
     Route::get('/pay-with-razorpay/{id}/{text}',[PaymentController::class,'yb_payWithRazorpay']);
 
     Route::get('my-account',[UserController::class,'my_account'])->name('my_account');
+    Route::post('track-order',[UserController::class,'track_order'])->name('track_order');
 
     Route::get('/my_orders', [UserController::class, 'my_orders']);
     Route::post('/show_order_product', [UserController::class, 'show_order_products']);

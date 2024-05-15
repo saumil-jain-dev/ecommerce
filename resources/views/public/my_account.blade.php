@@ -100,22 +100,23 @@
                                             <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
                                             <div class="row">
                                                 <div class="col-lg-8">
-                                                    <form class="contact-form-style mt-30 mb-50" action="#" method="post">
+                                                    <form class="contact-form-style mt-30 mb-50" method="post" id="trackForm" action="{{ route('track_order') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="track_url" class="track_url" value="{{ route('track_order') }}">
                                                         <div class="input-style mb-20">
                                                             <label>Order ID</label>
-                                                            <input name="order-id" placeholder="Found in your order confirmation email" type="text" />
+                                                            <input name="order_id" placeholder="Found in your order confirmation email" type="text" required />
                                                         </div>
-                                                        <div class="input-style mb-20">
-                                                            <label>Billing email</label>
-                                                            <input name="billing-email" placeholder="Email you used during checkout" type="email" />
-                                                        </div>
-                                                        <button class="submit submit-auto-width" type="submit">Track</button>
+                                                        
+                                                        <input class="submit submit-auto-width" type="submit" value="Track">
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
                                 <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                                     <div class="row">
                                         <div class="col-lg-6">

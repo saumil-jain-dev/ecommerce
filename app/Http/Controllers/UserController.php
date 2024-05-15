@@ -846,4 +846,19 @@ class UserController extends Controller
         $orderData = Order::where('user',$user_id)->get();
         return view('public.my_account',compact('userData','orderData'));
     }
+
+    public function track_order(Request $request) {
+        
+        $orderId = str_replace('ODR00','',$request->order_id);
+        
+        $user_id = session()->get('user_id');
+        if(!$user_id){
+            return redirect()->route('user_login');
+        }
+        $orderData = Order::where('user',$user_id)->where('id',$orderId)->first();
+        if(!$orderData) {
+            return redirect()->back()->with('error','Invalid order number');
+        }
+        return view('public.track_order',compact('orderData'));
+    }
 }
