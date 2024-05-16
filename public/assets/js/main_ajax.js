@@ -1544,6 +1544,8 @@ $(function(){
             quantity: {required: true},
             shipping_charges: {required: true},
             shipping_days: {required: true},
+            meta_title: {maxlength: 255},
+            meta_desc: {maxlength: 160},
         },
         submitHandler: function(form){
             var url = $('.url').val();
@@ -1588,6 +1590,8 @@ $(function(){
             quantity: {required: true},
             shipping_charges: {required: true},
             shipping_days: {required: true},
+            meta_title: {maxlength: 255},
+            meta_desc: {maxlength: 160},
         },
         submitHandler: function(form){
             var url = $('.url').val();

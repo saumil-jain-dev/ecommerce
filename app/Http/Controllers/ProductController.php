@@ -102,13 +102,15 @@ class ProductController extends Controller
             'min_qty'=>'required',
             'tags'=>'required',
             // 'barcode'=>'required',
-            'thumbnail_img'=>'image|mimes:jpeg,png,jpg|max:2048',
+            'thumbnail_img'=>'required|image|mimes:jpeg,png,jpg|max:2048',
             'unit_price'=>'required',
             'tax'=>'required',
             'quantity'=>'required',
             // 'product_status'=>'required',
             'shipping_charges'=>'required',
             'shipping_days'=>'required',
+            'meta_desc' => 'max:160',
+            'meta_title' => 'max:255',
         ]);
 
         if($request->thumbnail_img){
@@ -258,7 +260,9 @@ class ProductController extends Controller
             'tax'=>'required',
             'quantity'=>'required',
             'shipping_charges'=>'required',
-            'shipping_days'=>'required'
+            'shipping_days'=>'required',
+            'meta_desc' => 'max:160',
+            'meta_title' => 'max:255',
         ]);
 
         if($request->thumbnail_img != ''){
