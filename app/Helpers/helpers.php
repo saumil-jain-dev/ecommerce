@@ -130,13 +130,13 @@ if (! function_exists('get_product_price')) {
                 if($product->product_discount_type == 'flat'){
                         $price->new_price = $product->taxable_price - $product->product_discount;
                         $price->discount = $product->product_discount;
-                }elseif($product->product_discount_type == 'percent')
+                }elseif($product->product_discount_type == 'percent'){
                         $discount_amt = $product->taxable_price*$product->product_discount/100;
                         $price->new_price = (int)$product->taxable_price - (int)$discount_amt;
                         $price->discount = $product->product_discount.'%';
                 }
             }
-        elseif($product->date_range != '' && $product->discount != ''){
+        }elseif($product->date_range != '' && $product->discount != ''){
             $date = explode('-',$product->date_range);
             $currentDate = date('Y-m-d');
             $currentDate = date('Y-m-d', strtotime($currentDate));

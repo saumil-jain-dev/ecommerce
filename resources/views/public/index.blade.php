@@ -6,19 +6,20 @@
         <div class="container">
             <div class="home-slide-cover mt-30">
                 <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-                    @foreach($banner as $item)
-                    @if($item->status == '1')
-                    <div class="single-hero-slider single-animation-wrap"
-                        style="background-image: url({{ asset('public/banner/'.$item->banner_img) }}">
-                        <div class="slider-content">
-                            <h1 class="display-2 mb-40">
-                                Don’t miss amazing<br />
-                                Spices deals
-                            </h1>
-                           
-                        </div>
-                    </div>
-                    @endif
+                    @foreach ($banner as $item)
+                        @if ($item->status == '1')
+                        <img src="{{ asset('public/banner/' . $item->banner_img) }}">
+                            <!-- <div class="single-hero-slider single-animation-wrap"
+                                style="background-image: url({{ asset('public/banner/' . $item->banner_img) }}">
+                                <div class="slider-content">
+                                    <h1 class="display-2 mb-40">
+                                        Don’t miss amazing<br />
+                                        Spices deals
+                                    </h1>
+
+                                </div>
+                            </div> -->
+                        @endif
                     @endforeach
                 </div>
                 <div class="slider-arrow hero-slider-1-arrow"></div>

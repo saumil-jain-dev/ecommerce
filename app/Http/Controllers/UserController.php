@@ -593,19 +593,19 @@ class UserController extends Controller
         }
     }
 
-    public function show_order_products(Request $request)
+    public function show_order_products(Request $request,$id)
     {
         $user = session()->get('user_id');
         $products = OrderProducts::select(['order_products.*', 'products.product_name', 'products.thumbnail_img', 'products.shipping_days'])
             ->leftJoin('products', 'products.id', '=', 'order_products.product_id')
-            ->where('order_id', $request->id)->get();
+            ->where('order_id', $id)->get();
         $attributes = Attribute::select('*')->get();
         $attrvalues = Attrvalue::select(['attrvalues.*', 'attributes.title'])
             ->leftjoin('attributes', 'attributes.id', '=', 'attrvalues.attribute')
             ->get();
         $color = Color::select(['colors.*'])->get();
 
-        $order = Order::find($request->id);
+        $order = Order::find($id);
 
         return view('public.partials.order-products', ['products' => $products, 'attributes' => $attributes, 'attrvalues' => $attrvalues, 'colors' => $color, 'order' => $order]);
     }

@@ -134,9 +134,10 @@ use App\Http\Controllers\PaymentmethodController;
 
     Route::get('my-account',[UserController::class,'my_account'])->name('my_account');
     Route::post('track-order',[UserController::class,'track_order'])->name('track_order');
+    Route::post('/my-account/order-view/{id}',[UserController::class,''])->name('my_account.order-view');
 
     Route::get('/my_orders', [UserController::class, 'my_orders']);
-    Route::post('/show_order_product', [UserController::class, 'show_order_products']);
+    Route::get('/show_order_product/{id}', [UserController::class, 'show_order_products'])->name('my_account.order-view');
 
     Route::post('get-suggestions',[homeController::class,'get_suggestions']);
     Route::get('/all-products',[homeController::class,'search_products']);

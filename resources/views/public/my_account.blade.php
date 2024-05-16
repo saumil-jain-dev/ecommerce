@@ -77,7 +77,7 @@
                                                             <td>{{ date('d F, Y',strtotime($row->created_at)) }}</td>
                                                             <td>{{ ucfirst($row->status) }}</td>
                                                             <td>{{ site_settings()->currency }} {{ $row->amount }}</td>
-                                                            <td><a href="#" class="btn-small d-block">View</a></td>
+                                                            <td><a href="{{ route('my_account.order-view',$row->id) }}" class="btn-small d-block">View</a></td>
                                                         </tr>
                                                         @endforeach
                                                         @else
