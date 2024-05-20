@@ -52,6 +52,7 @@ class AdminController extends Controller
         $data['users'] = Users::count();
         $date = date('Y-m-d');
         $data['today_orders'] = Order::whereDate('created_at', $date)->count() ?? 0;
+        $data['today_total_sale'] = Order::whereDate('created_at', $date)->sum('amount');
         return view('admin.dashboard', $data);
     }
 

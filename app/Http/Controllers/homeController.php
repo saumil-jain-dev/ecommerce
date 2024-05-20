@@ -282,15 +282,45 @@ class homeController extends Controller
         return view('public.flash-products',['flash_products'=>$flash_products]);
     }
 
-    public function site_pages($slug = null){
-        $page = Page::where('page_slug',$slug)->first();
-        if($page){
-            return view('public.single',compact('page'));
-        }else{
+    // public function site_pages($slug = null){
+    //     $page = Page::where('page_slug',$slug)->first();
+    //     if($page){
+    //         return view('public.single',compact('page'));
+    //     }else{
 
-        return redirect()->route('home');
-            // return abort('404');
+    //     return redirect()->route('home');
+    //         // return abort('404');
+    //     }
+    // }
+
+    public function site_pages($slug = null) {
+
+        if($slug != null || $slug != ""){
+            
+            switch($slug) {
+                case 'about-us':
+                    return view('public.about-us',compact('slug'));
+                    break;
+                case 'contact-us':
+                    return view('public.contact-us',compact('slug'));
+                    break;
+                case 'term-of-use':
+                    return view('public.term-of-use',compact('slug'));
+                    break;
+                case 'privacy-policy':
+                    return view('public.privacy-policy',compact('slug'));
+                    break;
+                case 'shipping-and-delivery-policy':
+                    return view('public.shipping-and-delivery-policy',compact('slug'));
+                    break;
+                case 'return-and-refund-policy':
+                    return view('public.return-and-refund-policy',compact('slug'));
+                    break;
+                default:
+                    return abort(404);
+            }    
         }
+        
     }
 
 }
